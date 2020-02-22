@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">
+        <!-- 全屏显示 -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- 设置透明 Activity -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 禁止加载 Preview Window 预览窗口
+        <item name="android:windowDisablePreview">true</item>
+        -->
+    </style>
+</resources>

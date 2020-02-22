@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ink.techat.client.push.activities.MainActivity">
+
+    <!-- 顶部栏 -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:elevation="@dimen/len_2"
+        android:outlineProvider="bounds"
+        tools:targetApi="lollipop">
+
+        <!-- 顶部导航栏 -->
+        <FrameLayout
+            android:id="@+id/layFrame_container"
+            android:layout_marginTop="@dimen/statusBarSize"
+            android:paddingLeft="@dimen/len_4"
+            android:paddingRight="@dimen/len_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- 头像 -->
+            <ink.techat.client.common.widget.PortraitView
+                android:id="@+id/img_portrait"
+                android:layout_width="@dimen/len_40"
+                android:layout_height="@dimen/len_40"
+                android:layout_margin="@dimen/len_4"
+                android:padding="@dimen/len_4"
+                android:scaleType="centerCrop"
+                android:foreground="@drawable/ic_touch_menu"
+                android:src="@drawable/default_portrait"/>
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="@dimen/font_18"
+                android:text="Content"/>
+
+            <!-- 搜索按钮 -->
+            <ImageView
+                android:id="@+id/img_search"
+                android:layout_width="@dimen/len_40"
+                android:layout_height="@dimen/len_40"
+                android:contentDescription="@string/app_name"
+                android:layout_margin="@dimen/len_4"
+                android:tint="?attr/toolbarMenuIconColor"
+                android:padding="@dimen/len_10"
+                android:scaleType="centerInside"
+                android:foreground="@drawable/ic_touch_menu"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/ic_search"/>
+
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content 容器 -->
+    <FrameLayout
+        android:id="@+id/lay_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/len_52"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!-- 添加按钮 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_action"
+        android:layout_width="@dimen/len_52"
+        android:layout_height="@dimen/len_52"
+        android:layout_marginEnd="@dimen/len_16"
+        android:layout_marginBottom="@dimen/len_68"
+        android:src="@drawable/ic_group_add"
+        android:tint="@color/white"
+        app:gBackgroundColor="@color/colorAccent"
+        app:layout_anchor="@id/lay_container"
+        app:layout_anchorGravity="end|bottom" />
+
+    <!-- 底部栏 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:background="@color/white"
+        android:elevation="@dimen/len_4"
+        android:outlineProvider="bounds"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_52"
+        android:layout_gravity="bottom"
+        app:menu="@menu/navigation_items"
+        app:itemIconTint="@color/text_nav"
+        app:itemTextColor="@color/text_nav"
+        android:translationZ="@dimen/len_8"
+        tools:targetApi="lollipop"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

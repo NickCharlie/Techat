@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!--
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.ToolbarNavigationButtonStyle</item>
+        <item name="actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.PopupMenu.Overflow</item>
+        -->
+
+        <!-- 顶部导航条钟的Icon和二级字体的颜色 -->
+        <item name="colorControlNormal">@color/white_alpha_240</item>
+        <item name="colorControlActivated">@color/textPrimary</item>
+    </style>
+    <!-- Caused by: java.lang.IllegalStateException:
+    Only fullscreen opaque activities can request orientation
+    只有不透明的全屏activity可以自主设置界面方向。
+    这个问题出现在android8.0以上。
+    原因是给Activity同时设置了
+    android:screenOrientation="" 和
+    <item name="android:windowIsTranslucent">true</item>
+    解决方案是添加一个styles-v26适配 8.0 以上设备
+    -->
+    <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">
+        <!-- 去除顶部状态栏 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!-- 设置透明 Activity -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 全屏显示
+        <item name="android:windowFullscreen">true</item>
+        -->
+        <!-- 禁止加载 Preview Window 预览窗口
+        <item name="android:windowDisablePreview">true</item>
+        -->
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="AppTheme.TransStatusBar" parent="AppTheme.TransStatusBar.Base" />
+    <!-- AppTheme.Main -->
+    <style name="AppTheme.Main" parent="AppTheme.TransStatusBar">
+        <item name="toolbarTitleColor">@color/white</item>
+        <item name="toolbarMenuIconColor">@color/white</item>
+        <item name="colorControlHighlight">@color/textSecond</item>
+        <item name="android:windowBackground">@color/windowsBackgroundLight</item>
+    </style>
+    <!-- Title字体属性 -->
+    <style name="TextAppearance.Title" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">?attr/toolbarTitleSize</item>
+        <item name="android:textColor">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="AppTheme.Account" parent="AppTheme.TransStatusBar" />
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
