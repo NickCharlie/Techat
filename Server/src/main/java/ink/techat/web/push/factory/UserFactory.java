@@ -41,6 +41,18 @@ public class UserFactory {
     }
 
     /**
+     * 更新用户信息方法
+     * @param user User
+     * @return User
+     */
+    public static User update(User user){
+        return Hib.query(sessions -> {
+            sessions.saveOrUpdate(user);
+            return user;
+        });
+    }
+
+    /**
      * 给当前的账户绑定pushId
      * @param user User
      * @param pushId 当前设备pushId
@@ -67,21 +79,18 @@ public class UserFactory {
             }
             return 200;
         });
-        if(pushId.equalsIgnoreCase(user.getPushId())){
+        if (pushId.equalsIgnoreCase(user.getPushId())){
             // 如果当前需要绑定的设备Id已经绑定国了，不需要额外绑定
             return user;
         }else {
             // 如果当前账户之前的设备Id，和需要绑定的不同那么需要单点登录
             // 让之前的设备退出账户，推送一条退出消息
-            if(Strings.isNullOrEmpty(user.getPushId())){
+            if (Strings.isNullOrEmpty(user.getPushId())){
                 // TODO: 推送一个退出消息
             }
             user.setPushId(pushId);
             // 更新数据库信息
-            return Hib.query(sessions -> {
-                sessions.saveOrUpdate(user);
-                return user;
-            });
+            return update(user);
         }
     }
 
@@ -140,10 +149,7 @@ public class UserFactory {
         user.setToken(newToken);
 
         // 保存或更新数据库信息
-        return Hib.query(sessions -> {
-            sessions.saveOrUpdate(user);
-            return user;
-        });
+        return update(user);
     }
 
     /**

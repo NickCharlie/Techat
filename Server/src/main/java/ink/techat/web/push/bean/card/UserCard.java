@@ -23,6 +23,11 @@ public class UserCard {
     public static final int USER_PERMISSION_DEVELOPER = 5;
 
     public UserCard(final User user){
+        this(user, false);
+        // TODO 得到关注人和粉丝的数量
+    }
+
+    public UserCard(final User user, boolean isFollow){
         this.id = user.getId();
         this.name = user.getName();
         this.phone = user.getPhone();
@@ -30,7 +35,7 @@ public class UserCard {
         this.description = user.getDescription();
         this.sex = user.getSex();
         this.modifyAt = user.getUpdateAt();
-
+        this.isFollow = isFollow;
         // TODO 得到关注人和粉丝的数量
     }
 

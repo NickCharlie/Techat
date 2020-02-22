@@ -58,7 +58,7 @@ public class ResponseModel<M> implements Serializable {
     private M result;
 
     public ResponseModel() {
-        code = 1;
+        code = 200;
         message = "ok";
     }
 

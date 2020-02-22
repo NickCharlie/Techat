@@ -5,10 +5,8 @@ import com.google.gson.annotations.Expose;
 import ink.techat.web.push.bean.db.User;
 
 /**
- * 用户更新信息，完善信息的Model
- *
- * @author qiujuer Email:qiujuer@live.cn
- * @version 1.0.0
+ * 用户更新信息Model
+ * @author NickCharlie
  */
 public class UpdateInfoModel {
     @Expose
@@ -16,7 +14,7 @@ public class UpdateInfoModel {
     @Expose
     private String portrait;
     @Expose
-    private String desc;
+    private String description;
     @Expose
     private int sex;
 
@@ -37,11 +35,11 @@ public class UpdateInfoModel {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public int getSex() {
@@ -68,8 +66,8 @@ public class UpdateInfoModel {
             user.setPortrait(portrait);
         }
 
-        if (!Strings.isNullOrEmpty(desc)) {
-            user.setDescription(desc);
+        if (!Strings.isNullOrEmpty(description)) {
+            user.setDescription(description);
         }
 
         if (sex != 0) {
@@ -85,7 +83,7 @@ public class UpdateInfoModel {
         return model != null
                 && (!Strings.isNullOrEmpty(model.name) ||
                 !Strings.isNullOrEmpty(model.portrait) ||
-                !Strings.isNullOrEmpty(model.desc) ||
+                !Strings.isNullOrEmpty(model.description) ||
                 model.sex != 0);
     }
 

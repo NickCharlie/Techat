@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
  * 127.0.0.1/api/account/...
  */
 @Path("/account")
-public class AccountService {
+public class AccountService extends BaseService {
 
     @POST
     @Path("/login")
@@ -93,15 +93,9 @@ public class AccountService {
             // 返回参数异常
             return ResponseModel.buildParameterError();
         }
-        // 拿到自己的个人信息
-        User user = UserFactory.findByToken(token);
-        if(user != null){
-            // 绑定pushId
-            return bind(user, pushId);
-        }else {
-            // Token失效，账户异常，无法进行绑定
-            return ResponseModel.buildAccountError();
-        }
+        // 拿到自己的个人信息并且绑定
+        User self = getSelf();
+        return bind(self, pushId);
     }
 
     /**
