@@ -22,7 +22,6 @@ public class UserService extends BaseService {
 
     /**
      * 返回自己的个人信息
-     * @param token Token
      * @param model Model
      * @return UserCard
      */

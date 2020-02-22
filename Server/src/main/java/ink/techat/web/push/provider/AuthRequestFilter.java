@@ -37,7 +37,7 @@ public class AuthRequestFilter implements ContainerRequestFilter {
         }
         // 从Headers中找到第一个token
         String token  = requestContext.getHeaders().getFirst("token");
-        if (Strings.isNullOrEmpty(token)){
+        if (!Strings.isNullOrEmpty(token)){
             // 查询self的信息
             final User self = UserFactory.findByToken(token);
             if (self != null){
