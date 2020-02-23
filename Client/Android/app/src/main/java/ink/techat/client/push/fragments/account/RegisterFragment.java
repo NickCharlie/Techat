@@ -36,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
  * 用于注册的Fragment
  * @author NickCharlie
  */
-public class RegisterFragment extends Fragment implements{
+public class RegisterFragment extends Fragment{
     private AccountTrigger mAccountTrigger;
     @BindView(R.id.img_register_portraits)
     PortraitView mPortraits;
@@ -78,31 +78,18 @@ public class RegisterFragment extends Fragment implements{
                                 .withAspectRatio(1, 1)                  // 1:1比例
                                 .withMaxResultSize(520, 520)    // 返回最大的尺寸
                                 .withOptions(options)                        // 加载相关参数
-                                .start(getActivity(),200);                     // 启动
+                                .start(getActivity());                     // 启动
                     }
                     // show的时候建议用getChildFragmentManager
                 }).show(getChildFragmentManager(), GalleryFragment.class.getName());
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            final Uri resultUri = UCrop.getOutput(data);
-            if(resultUri != null){
-                loadPortrait(resultUri);
-            }
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            //noinspection ThrowableNotThrown
-            final Throwable cropError = UCrop.getError(data);
-        }
-    }
 
     /**
      * 加载Uri图像到当前的头像中
      * @param uri Uri
      */
-    private void loadPortrait(Uri uri){
+    public void loadPortrait(Uri uri){
         if (this != null){
             Log.i("提醒", String.valueOf(this));
             Glide.with(this)

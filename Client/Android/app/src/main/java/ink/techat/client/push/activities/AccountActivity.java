@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -13,16 +14,17 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.yalantis.ucrop.UCrop;
 
 import net.qiujuer.genius.ui.compat.UiCompat;
 
+import ink.techat.client.push.fragments.account.RegisterFragment;
 import butterknife.BindView;
 import ink.techat.client.common.app.Activity;
 import ink.techat.client.common.app.Fragment;
 import ink.techat.client.push.R;
 import ink.techat.client.push.fragments.account.AccountTrigger;
 import ink.techat.client.push.fragments.account.LoginFragment;
-import ink.techat.client.push.fragments.account.RegisterFragment;
 
 /**
  * @author NickCharlie
@@ -80,6 +82,21 @@ public class AccountActivity extends Activity implements AccountTrigger {
                     }
                 });
 
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            if (resultUri != null) {
+                ((RegisterFragment)mRegisterFragment).loadPortrait(resultUri);
+            }
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            //noinspection ThrowableNotThrown
+            final Throwable cropError = UCrop.getError(data);
+        }
     }
 
     @Override
