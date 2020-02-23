@@ -22,13 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activities.UserActivity"></activity>
         <activity
             android:name=".LaunchActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_launch"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,8 +45,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main">
-        </activity>
+            android:theme="@style/AppTheme.Main"></activity>
     </application>
 
 </manifest>

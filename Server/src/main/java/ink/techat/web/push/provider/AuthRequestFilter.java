@@ -73,7 +73,6 @@ public class AuthRequestFilter implements ContainerRequestFilter {
                 return;
             }
         }
-        //
         //noinspection rawtypes
         ResponseModel model = ResponseModel.buildAccountError();
         // ¿πΩÿ«Î«Û£¨∑µªÿ«Î«Û
