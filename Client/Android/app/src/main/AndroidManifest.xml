@@ -40,12 +40,14 @@
             android:theme="@style/AppTheme.Account" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"></activity>
+            android:theme="@style/AppTheme.Main" />
     </application>
 
 </manifest>

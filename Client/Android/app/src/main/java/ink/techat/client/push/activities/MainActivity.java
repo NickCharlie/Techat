@@ -29,6 +29,7 @@ import ink.techat.client.push.R;
 import ink.techat.client.push.fragments.main.ActiveFragment;
 import ink.techat.client.push.fragments.main.ContactFragment;
 import ink.techat.client.push.fragments.main.GroupFragment;
+import ink.techat.client.push.fragments.user.UpdateInfoFragment;
 import ink.techat.client.push.helper.NavHelper;
 
 /**
