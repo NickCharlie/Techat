@@ -61,7 +61,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
     public boolean checkMobile(String phone) {
         // 手机号不为空, 并且满足相应格式
         return !TextUtils.isEmpty(phone)
-                && Pattern.matches(Common.Constance.REGESX_MOBILE, phone);
+                && Pattern.matches(Common.Constance.REGEX_MOBILE, phone);
     }
 
     @SuppressWarnings("SingleStatementInBlock")
