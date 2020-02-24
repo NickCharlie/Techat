@@ -5,10 +5,6 @@ import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * @author qiujuer Email:qiujuer@live.cn
- * @version 1.0.0
- */
 public class ResponseModel<M> implements Serializable {
     // 成功
     public static final int SUCCEED = 200;

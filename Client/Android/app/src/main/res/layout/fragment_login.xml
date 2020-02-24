@@ -173,7 +173,7 @@
             android:background="@drawable/sel_btn_bg_black_alpha_44"/>
 
         <net.qiujuer.genius.ui.widget.Loading
-            android:id="@+id/loading"
+            android:id="@+id/login_loading"
             android:layout_width="@dimen/len_36"
             android:layout_height="@dimen/len_36"
             app:gBackgroundColor="@color/trans"

@@ -15,6 +15,7 @@ public class AccountRespModel {
      * String account 当前登录的账号
      * boolean isBind 当前标识是否已经绑定到设备
      * String token 当前登陆成功后获取的token，token可以获取用户的所有信息
+     * int userPermission 用户权限信息
      */
     @Expose
     private UserCard user;
@@ -24,6 +25,8 @@ public class AccountRespModel {
     private String token;
     @Expose
     private boolean isBind;
+    @Expose
+    private int userPermissionType;
 
     public AccountRespModel(User user){
         // 默认无绑定
@@ -35,6 +38,14 @@ public class AccountRespModel {
         this.account = user.getPhone();
         this.token = user.getToken();
         this.isBind = isBind;
+    }
+
+    public void setUserPermission(int userPermission) {
+        this.userPermissionType = userPermission;
+    }
+
+    public int getUserPermission() {
+        return userPermissionType;
     }
 
     public UserCard getUser() {

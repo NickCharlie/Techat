@@ -43,7 +43,7 @@ public class UserCard {
     private String id;
 
     @Expose
-    private int userPermissionType = USER_PERMISSION_NONE;
+    private int userPermissionType;
 
     @Expose
     private String name;

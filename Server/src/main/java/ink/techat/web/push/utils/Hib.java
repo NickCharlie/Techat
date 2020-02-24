@@ -10,8 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.logging.Logger;
 
 /**
- * Created by qiujuer
- * on 2017/2/17.
+ * @author NickCharlie
  */
 public class Hib {
     private static final Logger LOGGER = Logger.getLogger(Hib.class.getName());

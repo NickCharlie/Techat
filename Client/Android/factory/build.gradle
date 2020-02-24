@@ -29,6 +29,11 @@ dependencies {
     implementation project(path: ':common')
     testImplementation 'junit:junit:4.13'
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
     implementation "net.qiujuer.genius:res:$rootProject.ext.geniusVersion"
+    implementation "net.qiujuer.genius:kit-handler:$rootProject.ext.geniusVersion"
     implementation "com.aliyun.dpa:oss-android-sdk:$rootProject.ext.ossVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    implementation "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
 }
