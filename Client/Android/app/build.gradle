@@ -16,6 +16,18 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
 
+        //个推相关参数
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "BZZFmUq8186xXe6Qs6f4r5",
+                GETUI_APP_KEY   : "2lpS3g5HgR8uJCYinCZPz2",
+                GETUI_APP_SECRET: "RcgIN4Hewp797jTOdTyG06"
+        ]
+
+        ndk {
+            // 添加项目所需CPU类型的最小集
+            abiFilters "armeabi", "armeabi-v7a", "x86_64"
+        }
+
     }
     buildTypes {
         release {
@@ -64,4 +76,7 @@ dependencies {
     implementation "pub.devrel:easypermissions:$rootProject.ext.easyPMVersion"
     implementation project(path: ':common')
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    // 个推
+    implementation "com.getui:sdk:$rootProject.ext.getuiVersion"
 }

@@ -11,16 +11,30 @@ public class RegisterModel {
     private String password;
     private String name;
     private String pushId;
+    private String portrait;
 
     public RegisterModel(String account, String password, String name) {
-        this(account, password, name, null);
+        this(account, password, name, null, null);
     }
 
-    public RegisterModel(String account, String password, String name, String pushId) {
+    public RegisterModel(String account, String password, String name, String portrait) {
+        this(account, password, name, null, portrait);
+    }
+
+    public RegisterModel(String account, String password, String name, String pushId, String portrait) {
         this.account = account;
         this.password = password;
         this.name = name;
         this.pushId = pushId;
+        this.portrait = portrait;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     public String getAccount() {

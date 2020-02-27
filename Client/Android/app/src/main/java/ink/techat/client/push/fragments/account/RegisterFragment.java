@@ -2,19 +2,13 @@ package ink.techat.client.push.fragments.account;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.yalantis.ucrop.UCrop;
@@ -27,19 +21,15 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 import ink.techat.client.common.app.Application;
-import ink.techat.client.common.app.Fragment;
 import ink.techat.client.common.app.PresenterFragment;
 import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.factory.Factory;
 import ink.techat.client.factory.net.UploadHelper;
-import ink.techat.client.factory.presenter.BaseContract;
 import ink.techat.client.factory.presenter.account.RegisterContract;
 import ink.techat.client.factory.presenter.account.RegisterPresenter;
 import ink.techat.client.push.R;
 import ink.techat.client.push.activities.MainActivity;
 import ink.techat.client.push.fragments.media.GalleryFragment;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * 用于注册的Fragment
@@ -131,7 +121,8 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
      * 加载Uri图像到当前的头像中
      * @param uri Uri
      */
-    public void loadPortrait(Uri uri){
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
+    public String loadPortrait(Uri uri){
         if (this != null){
             Log.i("提醒", String.valueOf(this));
             Glide.with(this)
@@ -143,15 +134,18 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
         // 拿到本地文件的地址
         final String localPath = uri.getPath();
+        final String[] updateUrl = new String[1];
         Log.i("localPath-TAG", "localPath:" + localPath);
 
         Factory.runOnAsync(new Runnable() {
             @Override
             public void run() {
                 String url = UploadHelper.uploadPortrait(localPath);
-                Log.i("localPath-URL", "url:" + url);
+                updateUrl[0] = url;
             }
         });
+
+        return updateUrl[0];
     }
 
     @Override

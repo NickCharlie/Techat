@@ -168,6 +168,16 @@
                     android:tint="@color/colorAccent" />
             </FrameLayout>
 
+            <net.qiujuer.genius.ui.widget.Loading
+                android:id="@+id/launch_loading"
+                android:layout_width="@dimen/len_36"
+                android:layout_height="@dimen/len_36"
+                android:layout_gravity="center"
+                app:gAutoRun="true"
+                app:gBackgroundColor="@color/colorAccent"
+                app:gForegroundColor="@color/white"
+                app:gForegroundLineSize="1dp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

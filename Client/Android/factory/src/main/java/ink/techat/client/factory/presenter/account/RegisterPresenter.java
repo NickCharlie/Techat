@@ -48,6 +48,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         }else {
             // 参数没毛病, 构造Model, 进行网络请求调用, 设置回送口为this
             RegisterModel model = new RegisterModel(phone, password, name);
+            model.setPortrait(model.getPortrait());
             AccountHelper.register(model, this);
         }
     }

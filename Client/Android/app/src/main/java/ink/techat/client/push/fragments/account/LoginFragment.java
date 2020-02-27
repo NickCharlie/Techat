@@ -16,15 +16,20 @@ import net.qiujuer.genius.ui.widget.Button;
 import net.qiujuer.genius.ui.widget.Loading;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import ink.techat.client.common.app.Fragment;
+import ink.techat.client.common.app.PresenterFragment;
 import ink.techat.client.common.widget.PortraitView;
+import ink.techat.client.factory.presenter.account.LoginContract;
+import ink.techat.client.factory.presenter.account.LoginPresenter;
 import ink.techat.client.push.R;
 
 /**
  * 用于登录的Fragment
  * @author NickCharlie
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
+            implements LoginContract.View{
     private AccountTrigger mAccountTrigger;
 
     @BindView(R.id.img_login_portraits)
@@ -42,8 +47,14 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.btn_login_submit)
     Button mLoginBtn;
 
-    public LoginFragment() {
-        // Required empty public constructor
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.fragment_login;
+    }
+
+    @Override
+    protected LoginContract.Presenter initPresenter() {
+        return new LoginPresenter(this);
     }
 
     @Override
@@ -60,15 +71,45 @@ public class LoginFragment extends Fragment {
         mPassword.setEnabled(true);
     }
 
-    @Override
-    protected int getContentLayoutId() {
-        return R.layout.fragment_login;
+    @OnClick(R.id.btn_login_submit)
+    void onSubmitClick(){
+        String phone = mPhone.getText().toString();
+        String password = mPassword.getText().toString();
+        // 提交注册
+        mPresenter.login(phone, password);
+    }
+
+    @OnClick(R.id.txt_go_register)
+    void onShowRegisterClick(){
+        // 让AccountActivity进行界面切换
+        mAccountTrigger.triggerView();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        // 进行一次切换,默认为注册界面
-        mAccountTrigger.triggerView();
+    public void showLoading() {
+        super.showLoading();
+        // loading正在进时，界面不可操作
+        // 开始Loading
+        mLoading.start();
+        // 让控件不可以输入
+        mPhone.setEnabled(false);
+        mPassword.setEnabled(false);
+    }
+
+    @Override
+    public void showError(int str) {
+        super.showError(str);
+        // 显示错误时触发，loading结束了
+
+        // 停止Loading
+        mLoading.stop();
+        // 让控件可以输入
+        mPhone.setEnabled(true);
+        mPassword.setEnabled(true);
+    }
+
+    @Override
+    public void loginSuccess() {
+
     }
 }

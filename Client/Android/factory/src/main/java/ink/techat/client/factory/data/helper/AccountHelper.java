@@ -2,6 +2,7 @@ package ink.techat.client.factory.data.helper;
 
 import android.util.Log;
 
+import ink.techat.client.factory.Factory;
 import ink.techat.client.factory.R;
 import ink.techat.client.factory.data.DataSource;
 import ink.techat.client.factory.model.api.RspModel;
@@ -10,6 +11,7 @@ import ink.techat.client.factory.model.api.account.RegisterModel;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.net.Network;
 import ink.techat.client.factory.net.RemoteService;
+import ink.techat.client.factory.persistence.Account;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,15 +44,16 @@ public class AccountHelper {
                     // 判断绑定状态
                     if(accountRspModel.isBind()) {
                         User user = accountRspModel.getUser();
-                        // 写入数据库和缓存绑定, 然后返回
+                        // TODO: 写入数据库和缓存绑定, 然后返回
                         callback.onDataLoaded(user);
                     }else {
+                        callback.onDataLoaded(accountRspModel.getUser());
                         // 发现没有对pushId进行绑定, 绑定设备Id
                         bindPush(callback);
                     }
                 }else {
-                    // TODO:网络请求失败, 解析Code, 解析到对应的String
-                    // callback.onDataNotAvailable();
+                    // 错误解析
+                    Factory.decodeRspCode(rspModel, callback);
                 }
             }
 
@@ -68,6 +71,6 @@ public class AccountHelper {
      * @param callback DataSource.Callback<User>
      */
     public static void bindPush(final DataSource.Callback<User> callback){
-
+        Account.setBind(true);
     }
 }
