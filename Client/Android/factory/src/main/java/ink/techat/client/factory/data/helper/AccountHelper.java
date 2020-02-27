@@ -39,12 +39,15 @@ public class AccountHelper {
                 // 网络请求成功返回, 从返回中得到全局Model, 内部为Json解析
                 RspModel<AccountRspModel> rspModel = response.body();
                 if (response != null && rspModel.success()){
-                    // 拿到实体
+                    // 拿到实体, 获取我的用户信息
                     AccountRspModel accountRspModel = rspModel.getResult();
+                    final User user = accountRspModel.getUser();
+                    // 保存到数据库, 将用户信息存储到持久化xml
+                    user.save();
+                    Account.login(accountRspModel);
+
                     // 判断绑定状态
                     if(accountRspModel.isBind()) {
-                        User user = accountRspModel.getUser();
-                        // TODO: 写入数据库和缓存绑定, 然后返回
                         callback.onDataLoaded(user);
                     }else {
                         callback.onDataLoaded(accountRspModel.getUser());

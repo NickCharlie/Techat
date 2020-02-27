@@ -1,46 +1,60 @@
 package ink.techat.client.factory.model.db;
 
 
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 import java.util.Date;
 
 /**
  * 用户的Model
  * @author NickCharlie
  */
-public class User {
+@Table(database = AppDatabase.class)
+public class User extends BaseModel {
 
+    public static final int SEX_MAN = 1;
+    public static final int SEX_WOMAN = 0;
+    public static final int SEX_OTHER = 3;
+
+    @PrimaryKey
     private String id;
-
+    @Column
     private int userPermissionType;
-
+    @Column
     private String name;
-
+    @Column
     private String phone;
-
+    @Column
     private String portrait;
-
+    @Column
     private String description;
-
+    @Column
     private int sex = 0;
-
+    @Column
     private int follows;
-
+    @Column
     private int following;
 
     /**
      * 好友备注
      */
+    @Column
     private String alias;
 
     /**
      * 与当前User的关系
      */
+    @Column
     private boolean isFollow;
 
 
     /**
      * 用户信息最后的更新时间
      */
+    @Column
     private Date modifyAt;
 
     public String getId() {
@@ -133,5 +147,9 @@ public class User {
 
     public void setModifyAt(Date modifyAt) {
         this.modifyAt = modifyAt;
+    }
+
+    public void setUserPermissionType(int userPermissionType) {
+        this.userPermissionType = userPermissionType;
     }
 }

@@ -4,6 +4,8 @@ import androidx.annotation.StringRes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 import java.util.concurrent.Executor;
 
@@ -11,6 +13,7 @@ import ink.techat.client.common.app.Application;
 import ink.techat.client.factory.data.DataSource;
 import ink.techat.client.factory.model.api.RspModel;
 import ink.techat.client.factory.persistence.Account;
+import ink.techat.client.factory.utils.DBFlowExclusionStrategy;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
@@ -38,8 +41,7 @@ public class Factory {
         // 设置Gson解析器, setDateFormat设置时间格式,
         gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-                // TODO: 设置一个过滤器, 数据库级别的Model不进行Json转换
-                // .setExclusionStrategies
+                .setExclusionStrategies(new DBFlowExclusionStrategy())
                 .create();
     }
 
@@ -47,6 +49,11 @@ public class Factory {
      * Factory 中的初始化
      */
     public static void setup(){
+        // 数据库初始化, 顺便打开数据库
+        FlowManager.init(new FlowConfig.Builder(app())
+                .openDatabasesOnInit(true)
+                .build());
+
         // 持久化的数据进行初始化
         Account.load(app());
     }
