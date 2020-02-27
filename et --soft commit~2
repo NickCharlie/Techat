@@ -1,0 +1,107 @@
+[33mcommit 934dabc7746a29c21e26b157bba030fb3f64ba15[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: NickCharlie <max318515692@gmail.com>
+Date:   Thu Feb 27 22:09:34 2020 +0800
+
+    2020.2.27 小改动
+
+[33mcommit fef8ffd04077b072e1d41777fa8c61bbc8ab9ae7[m
+Author: NickCharlie <max318515692@gmail.com>
+Date:   Thu Feb 27 21:36:19 2020 +0800
+
+    2020.2.27 引入DBFlow框架 完善功能
+    
+    1. 配置DBFlow框架, 以及配置GSON对DBFlow数据库字段不自动转换为json
+    2. 完善了用户功能
+
+[33mcommit 844953504a67416ef771ed99a34aee586c5d3257[m
+Author: NickCharlie <max318515692@gmail.com>
+Date:   Thu Feb 27 17:11:32 2020 +0800
+
+    2020.2.27 配置个推, 完善注册
+    
+    1. 配置好了个推框架
+    2. 完善了注册功能
+
+[33mcommit 63dedf0decb6d7c3f5d516dcb75328c94d765ccd[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Mon Feb 24 21:58:04 2020 +0800
+
+    2020.2.24 客户端访问服务器register接口进行注册
+    
+    1.  完成了register的逻辑和网络请求
+    2.  出现了严重Bug，明天再修
+
+[33mcommit 0db250d4b870de5926a4b3c36eca659a56c6d4ee[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Mon Feb 24 17:08:38 2020 +0800
+
+    2020.2.24-17:06 修复Bug 封装基础类
+    
+    1. 完成了登陆注册的客户端基础封装和基础逻辑。
+    2. 修复了服务端登录无法返回用户权限的Bug
+
+[33mcommit 9e9bc997c2680857c37c5fceb9fe028bf633c6e5[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Mon Feb 24 00:35:53 2020 +0800
+
+    2020.2.24-0:35大半夜修好了注册换头像失败的Bug
+    
+    1. 修复了注册选择的头像无法显示无法上传服务端的Bug
+
+[33mcommit 5d3aeb6b9a6906853cbe0aed2e06961c7025830f[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sun Feb 23 22:18:43 2020 +0800
+
+    2020.2.23 登陆注册UI
+    
+    1. 完成了Android登录注册的UI界面
+    2. 写了登陆注册的接口
+    项目进展 32%
+
+[33mcommit a87e8dbd874f8591f25068bfa1a5e723508db133[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sun Feb 23 15:47:18 2020 +0800
+
+    2020.2.23 15:42
+    1. 加了一个AccountActivity,专门用来处理用户相关的信息，
+    例如登录注册等fragment都是在这个Activity上切换,由AccountActivity实现AccountTrigger的接口进行fragment的切换。
+
+[33mcommit e2b711c829716ecf4397008d35d8a705bdebd9ee[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sun Feb 23 00:26:34 2020 +0800
+
+    修复了api/user通过token获取用户信息的一些bug
+
+[33mcommit 1c34e5c9d9bb4f280d614c3cb1c6dc5bb58f76d6[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sat Feb 22 23:51:49 2020 +0800
+
+    2020.2.22 完工睡觉
+    
+    1. 完善了服务端后台的登录，注册接口
+    2. 完成了服务端的设备绑定接口
+    目前项目进展 30% 左右
+
+[33mcommit fc810b0691e69acd480d57aa094b59a5c17f1e5d[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sat Feb 22 21:17:40 2020 +0800
+
+    new one
+
+[33mcommit 7de94df41b6fdff537cfe5f1ccb08a9bee29276c[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sat Feb 22 17:21:03 2020 +0800
+
+    nothing
+
+[33mcommit c80ccf2716a64f3979b4ab885a0cd8384d64b086[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sat Feb 22 15:58:40 2020 +0800
+
+    Delete Techat消息推送文档.txt
+
+[33mcommit 66466976011761b7a8291182114285a84e2b3e39[m
+Author: NickCharlie <318515692@qq.com>
+Date:   Sat Feb 22 15:55:22 2020 +0800
+
+    25%
