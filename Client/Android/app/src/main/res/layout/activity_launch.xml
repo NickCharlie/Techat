@@ -178,6 +178,15 @@
                 app:gForegroundColor="@color/white"
                 app:gForegroundLineSize="1dp" />
 
+            <TextView
+                android:text="@string/label_wait"
+                android:textSize="@dimen/len_16"
+                android:textColor="@color/textPrimary"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/len_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

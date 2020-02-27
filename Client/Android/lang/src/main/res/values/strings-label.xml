@@ -28,4 +28,5 @@
     <string name="label_sex_woman">女</string>
     <string name="label_go_register">没有账户？去注册</string>
     <string name="label_go_login">已有账户？去登录</string>
+    <string name="label_wait">加载中……</string>
 </resources>

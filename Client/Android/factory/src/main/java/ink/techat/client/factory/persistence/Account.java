@@ -6,8 +6,6 @@ import android.text.TextUtils;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import org.w3c.dom.Text;
-
 import ink.techat.client.factory.Factory;
 import ink.techat.client.factory.model.api.account.AccountRspModel;
 import ink.techat.client.factory.model.db.User;
