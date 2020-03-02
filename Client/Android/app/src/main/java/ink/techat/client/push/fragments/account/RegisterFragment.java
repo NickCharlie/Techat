@@ -35,8 +35,10 @@ import ink.techat.client.push.fragments.media.GalleryFragment;
  * 用于注册的Fragment
  * @author NickCharlie
  */
-public class RegisterFragment extends PresenterFragment<RegisterContract.Presenter> implements RegisterContract.View {
+public class RegisterFragment extends PresenterFragment<RegisterContract.Presenter>
+                implements RegisterContract.View {
     private AccountTrigger mAccountTrigger;
+    private static String photoFilePath = null;
 
     @BindView(R.id.img_register_portraits)
     PortraitView mPortraits;
@@ -83,7 +85,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         String name = mPerson.getText().toString();
         String password = mPassword.getText().toString();
         // 提交注册
-        mPresenter.register(phone, name, password);
+        mPresenter.register(phone, name, password, photoFilePath);
     }
 
     @OnClick(R.id.txt_go_login)
@@ -121,8 +123,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
      * 加载Uri图像到当前的头像中
      * @param uri Uri
      */
-    @SuppressWarnings("MismatchedReadAndWriteOfArray")
-    public String loadPortrait(Uri uri){
+    public void loadPortrait(Uri uri){
         if (this != null){
             Log.i("提醒", String.valueOf(this));
             Glide.with(this)
@@ -133,19 +134,8 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         }
 
         // 拿到本地文件的地址
-        final String localPath = uri.getPath();
-        final String[] updateUrl = new String[1];
-        Log.i("localPath-TAG", "localPath:" + localPath);
-
-        Factory.runOnAsync(new Runnable() {
-            @Override
-            public void run() {
-                String url = UploadHelper.uploadPortrait(localPath);
-                updateUrl[0] = url;
-            }
-        });
-
-        return updateUrl[0];
+        photoFilePath = uri.getPath();
+        Log.i("localPath-TAG", "localPath:" + photoFilePath);
     }
 
     @Override

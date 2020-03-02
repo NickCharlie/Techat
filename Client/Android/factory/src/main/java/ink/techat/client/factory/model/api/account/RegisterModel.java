@@ -17,8 +17,9 @@ public class RegisterModel {
         this(account, password, name, null, null);
     }
 
-    public RegisterModel(String account, String password, String name, String portrait) {
-        this(account, password, name, null, portrait);
+
+    public RegisterModel(String account, String password, String name, String pushId) {
+        this(account, password, name, pushId, null);
     }
 
     public RegisterModel(String account, String password, String name, String pushId, String portrait) {

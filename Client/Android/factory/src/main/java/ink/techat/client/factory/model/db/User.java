@@ -1,6 +1,8 @@
 package ink.techat.client.factory.model.db;
 
 
+import androidx.annotation.NonNull;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -151,5 +153,24 @@ public class User extends BaseModel {
 
     public void setUserPermissionType(int userPermissionType) {
         this.userPermissionType = userPermissionType;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userPermissionType=" + userPermissionType +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", description='" + description + '\'' +
+                ", sex=" + sex +
+                ", follows=" + follows +
+                ", following=" + following +
+                ", alias='" + alias + '\'' +
+                ", isFollow=" + isFollow +
+                ", modifyAt=" + modifyAt +
+                '}';
     }
 }

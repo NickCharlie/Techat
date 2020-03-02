@@ -18,6 +18,7 @@ import com.yalantis.ucrop.UCrop;
 
 import net.qiujuer.genius.ui.compat.UiCompat;
 
+import ink.techat.client.common.app.Application;
 import ink.techat.client.push.fragments.account.RegisterFragment;
 import butterknife.BindView;
 import ink.techat.client.common.app.Activity;
@@ -85,6 +86,7 @@ public class AccountActivity extends Activity implements AccountTrigger {
     }
 
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -94,7 +96,7 @@ public class AccountActivity extends Activity implements AccountTrigger {
                 ((RegisterFragment)mRegisterFragment).loadPortrait(resultUri);
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
-            //noinspection ThrowableNotThrown
+            Application.showToast(R.string.data_rsp_error_unknown);
             final Throwable cropError = UCrop.getError(data);
         }
     }

@@ -8,11 +8,14 @@ import net.qiujuer.genius.kit.handler.runable.Action;
 import java.util.regex.Pattern;
 
 import ink.techat.client.common.Common;
+import ink.techat.client.factory.Factory;
 import ink.techat.client.factory.R;
 import ink.techat.client.factory.data.DataSource;
 import ink.techat.client.factory.data.helper.AccountHelper;
 import ink.techat.client.factory.model.api.account.RegisterModel;
 import ink.techat.client.factory.model.db.User;
+import ink.techat.client.factory.net.UploadHelper;
+import ink.techat.client.factory.persistence.Account;
 import ink.techat.client.factory.presenter.BasePresenter;
 
 /**
@@ -22,6 +25,7 @@ import ink.techat.client.factory.presenter.BasePresenter;
 public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         implements RegisterContract.Presenter, DataSource.Callback<User> {
 
+    private static String photoUpdatePath = null;
     private final int MIN_NAME_LENGTH = 2;
     private final int MIN_PASSWORD_LENGTH = 5;
 
@@ -30,7 +34,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
     }
 
     @Override
-    public void register(String phone, String name, String password) {
+    public void register(String phone, String name, String password, final String photoFilePath) {
         // 调用开始方法, 在start中默认启动了loading
         start();
         // 得到View接口
@@ -45,11 +49,20 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         }else if (password.length() < MIN_PASSWORD_LENGTH){
             // 密码需要大于5位
             view.showError(R.string.data_account_register_invalid_parameter_password);
-        }else {
+        }else if (TextUtils.isEmpty(photoFilePath)){
+            // 头像不能为空
+            view.showError(R.string.data_account_update_invalid_parameter);
+        } else {
             // 参数没毛病, 构造Model, 进行网络请求调用, 设置回送口为this
-            RegisterModel model = new RegisterModel(phone, password, name);
-            model.setPortrait(model.getPortrait());
+            RegisterModel model = new RegisterModel(phone, password, name, Account.getPushId(), photoUpdatePath);
             AccountHelper.register(model, this);
+
+            Factory.runOnAsync(new Runnable() {
+                @Override
+                public void run() {
+                    photoUpdatePath = UploadHelper.uploadPortrait(photoFilePath);
+                }
+            });
         }
     }
 
@@ -68,6 +81,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
     @SuppressWarnings("SingleStatementInBlock")
     @Override
     public void onDataLoaded(User user) {
+        globalUser = user;
         // 当网络请求成功, 注册成功, 回送用户信息, 告知界面注册成功
         final RegisterContract.View view = getmView();
         if (view == null){

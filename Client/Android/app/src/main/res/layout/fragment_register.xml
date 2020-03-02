@@ -21,7 +21,7 @@
         android:layout_height="@dimen/len_92"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_add_portrait"
+        android:src="@drawable/default_holder_add"
         android:tint="@color/trans"
         app:gBackgroundColor="@color/colorAccent" />
 

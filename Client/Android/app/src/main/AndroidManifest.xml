@@ -43,7 +43,10 @@
             android:name="ink.techat.client.MessageService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-        <activity android:name=".activities.UserActivity">
+        <activity android:name=".activities.UserActivity"
+            android:label="UserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransStatusBar">
         </activity>
 
         <activity

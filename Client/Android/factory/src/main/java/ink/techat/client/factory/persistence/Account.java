@@ -5,16 +5,20 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import ink.techat.client.factory.Factory;
+import ink.techat.client.factory.data.helper.AccountHelper;
 import ink.techat.client.factory.model.api.account.AccountRspModel;
+import ink.techat.client.factory.model.api.account.LoginModel;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.model.db.User_Table;
+import ink.techat.client.factory.presenter.account.LoginPresenter;
 
 /**
  * @author NicckCharlie
  */
-public class Account {
+public class Account extends BaseModel {
 
     private static final String KEY_PUSH_ID = "KEY_PUSH_ID";
     private static final String KEY_IS_BIND = "KEY_IS_BIND";
@@ -45,6 +49,9 @@ public class Account {
         // 存储数据
         sp.edit().putString(KEY_PUSH_ID, pushId)
                 .putBoolean(KEY_IS_BIND, isBind)
+                .putString(KEY_TOKEN, token)
+                .putString(KEY_USER_ID, userId)
+                .putString(KEY_ACCOUNT, account)
                 .apply();
     }
 
@@ -79,6 +86,9 @@ public class Account {
         // 加载设备Id, 设备Id绑定状态
         pushId = sp.getString(KEY_PUSH_ID, "");
         isBind = sp.getBoolean(KEY_IS_BIND, false);
+        token = sp.getString(KEY_TOKEN, "");
+        userId = sp.getString(KEY_USER_ID, "");
+        account = sp.getString(KEY_ACCOUNT, "");
     }
 
     /**
@@ -98,7 +108,13 @@ public class Account {
      */
     public static boolean isComplete() {
         // TODO: 用户信息完善判断
-        return isLogin();
+        if (isLogin()){
+            User self = getUser();
+            return !TextUtils.isEmpty(self.getDescription()) && !TextUtils.isEmpty(self.getPortrait())
+                                                             && self.getSex() >= 0;
+        }
+        // 未登录, 返回false
+        return false;
     }
 
     /**
@@ -144,4 +160,10 @@ public class Account {
                 .where(User_Table.id.eq(userId))
                 .querySingle();
     }
+
+    public static String getToken(){
+        return token;
+    }
+
+
 }

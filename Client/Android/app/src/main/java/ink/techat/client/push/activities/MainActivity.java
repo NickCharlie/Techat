@@ -3,6 +3,7 @@ package ink.techat.client.push.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import ink.techat.client.common.app.Activity;
 import ink.techat.client.common.widget.PortraitView;
+import ink.techat.client.factory.persistence.Account;
 import ink.techat.client.push.R;
 import ink.techat.client.push.fragments.main.ActiveFragment;
 import ink.techat.client.push.fragments.main.ContactFragment;
@@ -69,9 +71,10 @@ public class MainActivity extends Activity
 
     /**
      * MainActivity 显示的入口
+     *
      * @param context 环境上下文
      */
-    public static void show(Context context){
+    public static void show(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
@@ -80,7 +83,7 @@ public class MainActivity extends Activity
         super.initData();
         // 从底部导航接管Menu,手动触发第一次点击Home
         Menu menu = mNavigation.getMenu();
-        menu.performIdentifierAction(R.id.action_contact, 0);
+        menu.performIdentifierAction(R.id.action_home, 0);
     }
 
     /**
@@ -137,7 +140,7 @@ public class MainActivity extends Activity
     }
 
     @OnClick(R.id.img_portrait)
-    void onPortraitClick(){
+    void onPortraitClick() {
         AccountActivity.show(this);
     }
 
@@ -146,7 +149,11 @@ public class MainActivity extends Activity
      */
     @OnClick(R.id.btn_action)
     void onActionClick() {
-
+        if (Account.isComplete()) {
+            // TODO
+        }else {
+            UserActivity.show(this);
+        }
     }
 
     /**

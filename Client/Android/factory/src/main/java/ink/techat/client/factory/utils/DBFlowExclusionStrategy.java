@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.structure.ModelAdapter;
 
 /**
  * DBFlow数据库字段过滤 GSON
+ * 使GSON在自动将内容转换为json的时候会忽略到DBFlow的字段
  * @author NickCharlie
  */
 public class DBFlowExclusionStrategy implements ExclusionStrategy {

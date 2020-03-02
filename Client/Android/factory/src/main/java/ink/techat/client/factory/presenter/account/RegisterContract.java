@@ -15,7 +15,7 @@ public interface RegisterContract {
 
     interface Presenter extends BaseContract.Presenter {
         // 发起一个注册
-        void register(String phone, String name, String password);
+        void register(String phone, String name, String password, String photoFilePath);
         // 检查手机号是否正确
         boolean checkMobile(String phone);
     }

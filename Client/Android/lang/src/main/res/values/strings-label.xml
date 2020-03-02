@@ -13,7 +13,7 @@
     <string name="label_permission_submit">授权</string>
     <string name="label_permission_ok">授权成功！</string>
 
-    <string name="label_update_info_tips">仅差一步了</string>
+    <string name="label_update_info_tips">用户信息</string>
     <string name="label_login_welcome">登录</string>
     <string name="label_submit">提交</string>
     <string name="label_login">登录</string>
@@ -29,4 +29,10 @@
     <string name="label_go_register">没有账户？去注册</string>
     <string name="label_go_login">已有账户？去登录</string>
     <string name="label_wait">加载中……</string>
+
+    <string name="label_user_inf_account">账号</string>
+    <string name="label_user_inf_desc">个性签名</string>
+    <string name="label_user_inf_name">昵称</string>
+    <string name="label_user_inf_sex">性别</string>
+    <string name="label_user_inf_email">电子邮箱</string>
 </resources>

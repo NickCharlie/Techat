@@ -17,7 +17,7 @@ import ink.techat.client.factory.persistence.Account;
  * @author NickCharlie
  */
 public class MessageService extends GTIntentService {
-    private static final String TAG = MessageReceiver.class.getSimpleName();
+    private static final String TAG = MessageService.class.getSimpleName();
 
     @Override
     public void onReceiveServicePid(Context context, int i) {

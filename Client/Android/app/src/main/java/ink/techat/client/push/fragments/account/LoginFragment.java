@@ -23,6 +23,7 @@ import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.factory.presenter.account.LoginContract;
 import ink.techat.client.factory.presenter.account.LoginPresenter;
 import ink.techat.client.push.R;
+import ink.techat.client.push.activities.MainActivity;
 
 /**
  * 用于登录的Fragment
@@ -110,6 +111,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
 
     @Override
     public void loginSuccess() {
-
+        MainActivity.show(getContext());
+        getActivity().finish();
     }
 }
