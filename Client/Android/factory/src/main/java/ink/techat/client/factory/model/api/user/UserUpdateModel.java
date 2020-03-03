@@ -6,13 +6,13 @@ package ink.techat.client.factory.model.api.user;
 public class UserUpdateModel {
     private String name;
     private String portrait;
-    private String desc;
+    private String description;
     private int sex;
 
     public UserUpdateModel(String name, String portrait, String desc, int sex) {
         this.name = name;
         this.portrait = portrait;
-        this.desc = desc;
+        this.description = desc;
         this.sex = sex;
     }
 
@@ -33,11 +33,11 @@ public class UserUpdateModel {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDesc(String description) {
+        this.description = description;
     }
 
     public int getSex() {
@@ -53,7 +53,7 @@ public class UserUpdateModel {
         return "UserUpdateModel{" +
                 "name='" + name + '\'' +
                 ", portrait='" + portrait + '\'' +
-                ", desc='" + desc + '\'' +
+                ", desc='" + description + '\'' +
                 ", sex=" + sex +
                 '}';
     }

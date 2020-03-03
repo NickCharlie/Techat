@@ -3,6 +3,7 @@ package ink.techat.client.push.fragments.user;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ import static ink.techat.client.factory.persistence.Account.getUser;
 public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Presenter>
         implements UpdateInfoContract.View{
 
+    private static final String USER_INFO_FROM_SERVER = "INFO_FROM_SERVER";
     private static final String USER_SEX_FEMALE_STRING = "女";
     private static final String USER_SEX_MALE_STRING = "男";
     private static final String USER_SEX_OTHER_STRING = "你猜";
@@ -73,7 +75,7 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
     @BindView(R.id.update_user_info_loading)
     Loading mLoading;
 
-    private String mPortraitPath;
+    private String mPortraitPath = null;
 
     public UpdateInfoFragment() {
         // Required empty public constructor
@@ -89,11 +91,14 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
         super.initData();
         User self = getUser();
         String mPhotoUri = self.getPortrait();
-
-        loadPortrait(mPhotoUri);
         mAccount.setText(self.getPhone());
         mUserName.setText(self.getName());
         mUserDesc.setText(self.getDescription());
+
+        if (!TextUtils.isEmpty(mPhotoUri)){
+            loadPortrait(mPhotoUri);
+            mPortraitPath = USER_INFO_FROM_SERVER;
+        }
 
         if (self.getSex() == USER_SEX_MALE){
             mUserSex.setText(USER_SEX_MALE_STRING);
@@ -120,7 +125,6 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
 
         // 提交更新到Presenter
         mPresenter.update(mPortraitPath, name, sex, desc);
-
     }
 
     @OnClick(R.id.txt_user_sex)
@@ -181,7 +185,6 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
      */
     private void loadPortrait(String uri){
 
-        mPortraitPath = uri;
         if (this != null){
             Log.i("提醒", String.valueOf(this));
             Glide.with(this)

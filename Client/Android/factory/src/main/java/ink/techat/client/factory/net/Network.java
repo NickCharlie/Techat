@@ -53,12 +53,11 @@ public class Network {
                         if (!TextUtils.isEmpty(Account.getToken())){
                             builder.addHeader("token", Account.getToken());
                         }
-                        builder.addHeader("Content-Type", "application");
+                        builder.addHeader("Content-Type", "application/json");
                         Request newRequest = builder.build();
                         return chain.proceed(newRequest);
                     }
-                })
-                .build();
+                }).build();
 
         Retrofit.Builder builder = new Retrofit.Builder();
         // 设置链接URL, Json解析器

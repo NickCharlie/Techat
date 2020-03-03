@@ -109,33 +109,14 @@ public class LaunchActivity extends Activity {
 
     @SuppressLint("ApplySharedPref")
     private void skip() {
-        SharedPreferences shared=getSharedPreferences("is", MODE_PRIVATE);
-        boolean isFirst=shared.getBoolean("isFirst", true);
-        SharedPreferences.Editor editor=shared.edit();
-        if(isFirst){
-            //第一次进入跳转
-            if(hasExternalStoragePermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-                editor.putBoolean("isFirst", false);
-                editor.commit();
-                // 检查登录状态判断跳转页面
-                if (Account.isLogin()){
-                    MainActivity.show(this);
-                }else {
-                    AccountActivity.show(this);
-                }
-                finish();
+        if(hasExternalStoragePermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            // 检查登录状态判断跳转页面
+            if (Account.isLogin()){
+                MainActivity.show(this);
+            }else {
+                AccountActivity.show(this);
             }
-        }else{
-            //第二次进入跳转
-            if(hasExternalStoragePermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-                // 检查登录状态判断跳转页面
-                if (Account.isLogin()){
-                    MainActivity.show(this);
-                }else {
-                    AccountActivity.show(this);
-                }
-                finish();
-            }
+            finish();
         }
     }
 

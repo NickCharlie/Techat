@@ -22,6 +22,9 @@ import ink.techat.client.factory.presenter.BasePresenter;
 public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
             implements UpdateInfoContract.Presenter, DataSource.Callback<UserCard> {
 
+    private static final String USER_INFO_FROM_SERVER = "INFO_FROM_SERVER";
+    private static final String USER_IMAGE_UPDATE_FAILURE = "PHOTO_UPDATE_FAILURE";
+
     public UpdateInfoPresenter(UpdateInfoContract.View view) {
         super(view);
     }
@@ -34,27 +37,47 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
         if (TextUtils.isEmpty(photoFilePath) || TextUtils.isEmpty(desc) || TextUtils.isEmpty(name)){
             view.showError(R.string.data_account_update_invalid_parameter);
         }else {
-            // 拿到本地文件的地址, 异步上传头像到阿里OSS
-            final String localPath = photoFilePath;
-            Log.i("UpdatePhoto-localPath", "localPath:" + localPath);
+            if (photoFilePath.equals(USER_INFO_FROM_SERVER)){
+                userInfoUpdate(photoFilePath, name, sex, desc);
+            }
+        }
+    }
 
-            Factory.runOnAsync(new Runnable() {
-                @Override
-                public void run() {
-                    // 将头像上传到阿里云OSS
-                    String url = UploadHelper.uploadPortrait(localPath);
+    private void userInfoUpdate(String photoFilePath, final String name, final int sex, final String desc){
 
-                    if (TextUtils.isEmpty(url)){
+        final UpdateInfoContract.View view = getmView();
+        // 拿到本地文件的地址, 异步上传头像到阿里OSS
+        final String localPath = photoFilePath;
+        Log.i("UpdatePhoto-localPath", "localPath:" + localPath);
+
+        Factory.runOnAsync(new Runnable() {
+            @Override
+            public void run() {
+                String url = USER_IMAGE_UPDATE_FAILURE;
+                // 将头像上传到阿里云OSS
+                if (!(localPath.equals(USER_INFO_FROM_SERVER))){
+                    url = UploadHelper.uploadPortrait(localPath);
+                    if (url.equals(USER_IMAGE_UPDATE_FAILURE)){
                         view.showError(R.string.data_upload_error);
                         Log.i("UpdatePhoto-InterPath", "url为空，头像上传失败");
                     }else {
-                        UserUpdateModel model = new UserUpdateModel(name, url, desc, sex);
-                        UserHelper.update(model, UpdateInfoPresenter.this);
-                        Log.i("UpdatePhoto-InterPath", "url:" + url);
+                        url = USER_INFO_FROM_SERVER;
                     }
+                }else {
+                    url = localPath;
                 }
-            });
-        }
+
+                if (!(url.equals(USER_IMAGE_UPDATE_FAILURE))){
+                    UserUpdateModel model = new UserUpdateModel(name, url, desc, sex);
+                    UserHelper.update(model, UpdateInfoPresenter.this);
+                    Log.i("UpdatePhoto-InterPath", "url:" + url);
+                }else {
+                    view.showError(R.string.data_upload_error);
+                    Log.i("UpdatePhoto-InterPath", "url为空，头像上传失败");
+                }
+            }
+        });
+
     }
 
     @Override
