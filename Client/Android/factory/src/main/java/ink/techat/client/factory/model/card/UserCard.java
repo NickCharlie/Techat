@@ -3,13 +3,14 @@ package ink.techat.client.factory.model.card;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import ink.techat.client.factory.model.Author;
 import ink.techat.client.factory.model.db.User;
 
 /**
  * 用户信息卡片
  * @author NicKCharlie
  */
-public class UserCard {
+public class UserCard implements Author {
     /**
      * 用户权限级别
      * USER_PERMISSION_NONE 默认用户权限
@@ -80,7 +81,6 @@ public class UserCard {
             user.setName(name);
             user.setPhone(phone);
             user.setPortrait(portrait);
-            user.setUserPermissionType(userPermissionType);
             user.setDescription(description);
             user.setSex(sex);
             user.setFollows(follows);
@@ -91,22 +91,27 @@ public class UserCard {
         return user;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
 
+    @Override
     public int getUserPermissionType() {
         return userPermissionType;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -119,10 +124,12 @@ public class UserCard {
         this.phone = phone;
     }
 
+    @Override
     public String getPortrait() {
         return portrait;
     }
 
+    @Override
     public void setPortrait(String portrait) {
         this.portrait = portrait;
     }

@@ -8,12 +8,10 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import ink.techat.client.factory.Factory;
-import ink.techat.client.factory.data.helper.AccountHelper;
 import ink.techat.client.factory.model.api.account.AccountRspModel;
-import ink.techat.client.factory.model.api.account.LoginModel;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.model.db.User_Table;
-import ink.techat.client.factory.presenter.account.LoginPresenter;
+
 
 /**
  * @author NicckCharlie
@@ -148,7 +146,6 @@ public class Account extends BaseModel {
         Account.userId = model.getUser().getId();
         save(Factory.app());
     }
-
     /**
      * 获取当前登录的用户信息
      * @return User
@@ -159,6 +156,14 @@ public class Account extends BaseModel {
                 .from(User.class)
                 .where(User_Table.id.eq(userId))
                 .querySingle();
+    }
+
+    /**
+     * 拿取用户Id
+     * @return 用户Id
+     */
+    public static String getUserId(){
+        return getUser().getId();
     }
 
     public static String getToken(){

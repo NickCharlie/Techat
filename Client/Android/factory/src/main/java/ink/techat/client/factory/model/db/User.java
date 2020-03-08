@@ -10,12 +10,14 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
 
+import ink.techat.client.factory.model.Author;
+
 /**
  * 用户的Model
  * @author NickCharlie
  */
 @Table(database = AppDatabase.class)
-public class User extends BaseModel {
+public class User extends BaseModel implements Author {
 
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 0;
@@ -59,22 +61,31 @@ public class User extends BaseModel {
     @Column
     private Date modifyAt;
 
+    public void setUserPermissionType(int userPermissionType) {
+        this.userPermissionType = userPermissionType;
+    }
+
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
 
+    @Override
     public int getUserPermissionType() {
         return userPermissionType;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -87,10 +98,12 @@ public class User extends BaseModel {
         this.phone = phone;
     }
 
+    @Override
     public String getPortrait() {
         return portrait;
     }
 
+    @Override
     public void setPortrait(String portrait) {
         this.portrait = portrait;
     }
@@ -149,10 +162,6 @@ public class User extends BaseModel {
 
     public void setModifyAt(Date modifyAt) {
         this.modifyAt = modifyAt;
-    }
-
-    public void setUserPermissionType(int userPermissionType) {
-        this.userPermissionType = userPermissionType;
     }
 
     @NonNull

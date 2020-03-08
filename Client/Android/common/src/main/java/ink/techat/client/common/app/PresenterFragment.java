@@ -28,15 +28,24 @@ public abstract class PresenterFragment<Presenter extends BaseContract.Presenter
         initPresenter();
     }
 
+    @SuppressWarnings("UnnecessaryReturnStatement")
     @Override
     public void showError(int str) {
-        // 显示错误
-        Application.showToast(str);
+        if (mPlaceHolderView != null){
+            mPlaceHolderView.triggerError(str);
+            return;
+        }else {
+            // 显示错误
+            Application.showToast(str);
+        }
     }
 
     @Override
     public void showLoading() {
         // TODO: 显示一个Loading
+        if (mPlaceHolderView != null){
+            mPlaceHolderView.triggerLoading();
+        }
     }
 
     @Override

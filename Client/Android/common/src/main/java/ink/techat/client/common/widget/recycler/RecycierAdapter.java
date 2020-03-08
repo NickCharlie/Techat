@@ -22,8 +22,7 @@ import ink.techat.client.common.R;
  */
 public abstract class RecycierAdapter<Data>
         extends RecyclerView.Adapter<RecycierAdapter.ViewHolder<Data>>
-            implements  View.OnClickListener,View.OnLongClickListener,
-                AdapterCallback<Data>{
+            implements  View.OnClickListener,View.OnLongClickListener, AdapterCallback<Data>{
 
     private final List<Data> mDataList = new ArrayList<>();
     private  AdapterLister<Data> mListener;

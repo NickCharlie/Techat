@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Gradle : ink.techat : TechatWeb-1.0-SNAPSHOT.war (exploded) archive">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gradle___ink_techat___TechatWeb_1_0_SNAPSHOT_war__exploded__archive</output-path>
+    <root id="archive" name="Gradle _ ink.techat _ TechatWeb-1.0-SNAPSHOT.war (exploded) archive.war">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/test/webapp/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

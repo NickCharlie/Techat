@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import ink.techat.client.common.widget.convention.PlaceHolderView;
 
 /**
  * @author Nickcharlie
@@ -20,6 +21,8 @@ import butterknife.Unbinder;
 public abstract class Fragment extends androidx.fragment.app.Fragment {
     protected View mRoot;
     protected Unbinder mRootUnBinder;
+    protected PlaceHolderView mPlaceHolderView;
+    protected boolean mIsFirstInitData = true;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -46,9 +49,9 @@ public abstract class Fragment extends androidx.fragment.app.Fragment {
 
         if (mRoot == null) {
             int layId = getContentLayoutId();
-            //初始化当前的根布局，但是不在创建时就添加到container里边
+            // 初始化当前的根布局，但是不在创建时就添加到container里边
             View root = inflater.inflate(layId, container, false);
-            //初始化控件
+            // 初始化控件
             initWidget(root);
             mRoot = root;
         } else {
@@ -63,7 +66,11 @@ public abstract class Fragment extends androidx.fragment.app.Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //当View创建完成后初始化数据
+        if (mIsFirstInitData){
+            // 首次初始化数据
+            onFirstInitData();
+        }
+        // 初始化数据
         initData();
     }
 
@@ -89,6 +96,13 @@ public abstract class Fragment extends androidx.fragment.app.Fragment {
     }
 
     /**
+     * 首次初始化数据
+     */
+    protected void onFirstInitData() {
+
+    }
+
+    /**
      * 返回按键触发时调用
      *
      * @return 返回True代表已经处理返回逻辑，Activity不用关心
@@ -96,5 +110,13 @@ public abstract class Fragment extends androidx.fragment.app.Fragment {
      */
     public boolean onBackPressed() {
         return false;
+    }
+
+    public PlaceHolderView getmPlaceHolderView() {
+        return mPlaceHolderView;
+    }
+
+    public void setmPlaceHolderView(PlaceHolderView mPlaceHolderView) {
+        this.mPlaceHolderView = mPlaceHolderView;
     }
 }

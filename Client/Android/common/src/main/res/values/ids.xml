@@ -4,4 +4,6 @@
     <item name="tag_recycler_holder" type="id"/>
     <!-- 默认头像drawable名 -->
     <item name="default_portrait" type="drawable" />
+    <!-- Toolbar的默认Id名 -->
+    <item name="toolbar" type="id"/>
 </resources>

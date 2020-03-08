@@ -2,6 +2,10 @@ package ink.techat.client.factory.presenter;
 
 import ink.techat.client.factory.model.db.User;
 
+/**
+ * @author NickCharlie
+ * @param <T>
+ */
 public class BasePresenter<T extends BaseContract.View>
         implements BaseContract.Presenter{
 
@@ -14,7 +18,7 @@ public class BasePresenter<T extends BaseContract.View>
 
     /**
      * 设置View方法
-     * @param view
+     * @param view View
      */
     @SuppressWarnings("unchecked")
     protected void setView(T view){

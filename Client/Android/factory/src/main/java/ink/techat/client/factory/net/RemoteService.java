@@ -1,6 +1,8 @@
 package ink.techat.client.factory.net;
 
 
+import java.util.List;
+
 import ink.techat.client.factory.model.api.RspModel;
 import ink.techat.client.factory.model.api.account.AccountRspModel;
 import ink.techat.client.factory.model.api.account.LoginModel;
@@ -9,6 +11,7 @@ import ink.techat.client.factory.model.api.user.UserUpdateModel;
 import ink.techat.client.factory.model.card.UserCard;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -50,4 +53,20 @@ public interface RemoteService {
      */
     @PUT("user")
     Call<RspModel<UserCard>> userUpdate(@Body UserUpdateModel model);
+
+    /**
+     * 用户搜索的接口
+     * @param name Name
+     * @return RspModel<List<UserCard>>
+     */
+    @GET("user/search/{name}")
+    Call<RspModel<List<UserCard>>> userSearch(@Path("name") String name);
+
+    /**
+     * 用户关注的接口
+     * @param userId userId
+     * @return
+     */
+    @PUT("user/follow/{userId}")
+    Call<RspModel<UserCard>> userFollow(@Path("userId") String userId);
 }

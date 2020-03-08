@@ -23,6 +23,7 @@ public class SquareLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // 搞一个正方形 全用 widthMeasureSpec 宽度限定

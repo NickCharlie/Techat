@@ -42,10 +42,9 @@ buildscript {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
-    implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //noinspection GradleCompatible
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -53,9 +52,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
     //noinspection GradleCompatible
-    implementation "com.android.support:recyclerview-v7:$rootProject.ext.recyclerview_v7Version"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation "com.android.support:design:$rootProject.ext.supportVersion"
+    implementation 'com.google.android.material:material:1.1.0'
     implementation "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
     implementation "net.qiujuer.genius:res:$rootProject.ext.geniusVersion"
     //noinspection GradleDependency

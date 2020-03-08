@@ -249,6 +249,7 @@ public class UserFactory {
                 .setMaxResults(1)
                 .uniqueResult());
     }
+    
 
     /**
      * ËÑË÷ÁªÏµÈË

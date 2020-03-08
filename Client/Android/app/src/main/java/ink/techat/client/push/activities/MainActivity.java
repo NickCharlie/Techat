@@ -3,7 +3,7 @@ package ink.techat.client.push.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +22,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.qiujuer.genius.ui.Ui;
 
+import org.w3c.dom.Text;
+
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import ink.techat.client.common.app.Activity;
@@ -31,8 +35,9 @@ import ink.techat.client.push.R;
 import ink.techat.client.push.fragments.main.ActiveFragment;
 import ink.techat.client.push.fragments.main.ContactFragment;
 import ink.techat.client.push.fragments.main.GroupFragment;
-import ink.techat.client.push.fragments.user.UpdateInfoFragment;
 import ink.techat.client.push.helper.NavHelper;
+
+import static ink.techat.client.factory.persistence.Account.getUser;
 
 /**
  * @author NickCharlie
@@ -84,6 +89,14 @@ public class MainActivity extends Activity
         // 从底部导航接管Menu,手动触发第一次点击Home
         Menu menu = mNavigation.getMenu();
         menu.performIdentifierAction(R.id.action_home, 0);
+
+        if (!TextUtils.isEmpty(getUser().getPortrait())){
+            Glide.with(this)
+                    .asDrawable()
+                    .load(getUser().getPortrait())
+                    .centerCrop()
+                    .into(mPortrait);
+        }
     }
 
     /**
@@ -136,12 +149,19 @@ public class MainActivity extends Activity
      */
     @OnClick(R.id.img_search)
     void onSearchMenuClick() {
+        int type = Objects.equals(mNavHelper.getCurrentTab().extra, R.string.title_group) ?
+        SearchActivity.TYPE_GROUP : SearchActivity.TYPE_USER;
 
+        SearchActivity.show(this, type);
     }
 
     @OnClick(R.id.img_portrait)
     void onPortraitClick() {
-        AccountActivity.show(this);
+        if (Account.isComplete()) {
+            // TODO
+        }else {
+            UserActivity.show(this);
+        }
     }
 
     /**
@@ -149,11 +169,12 @@ public class MainActivity extends Activity
      */
     @OnClick(R.id.btn_action)
     void onActionClick() {
-        if (Account.isComplete()) {
-            // TODO
+        if (Objects.equals(mNavHelper.getCurrentTab().extra, R.string.title_group)){
+            // TODO: 打开群创建界面
         }else {
-            UserActivity.show(this);
+            SearchActivity.show(this, SearchActivity.TYPE_USER);
         }
+
     }
 
     /**
@@ -208,4 +229,6 @@ public class MainActivity extends Activity
                 .setDuration(480)
                 .start();
     }
+
+
 }
