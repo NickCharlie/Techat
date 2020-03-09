@@ -9,15 +9,18 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.Objects;
 
 import ink.techat.client.factory.model.Author;
+import ink.techat.client.factory.utils.DiffUiDataCallback;
+import ink.techat.client.utils.TextMatch;
 
 /**
  * 用户的Model
  * @author NickCharlie
  */
 @Table(database = AppDatabase.class)
-public class User extends BaseModel implements Author {
+public class User extends BaseModel implements Author, DiffUiDataCallback.UiDataDiffer<User> {
 
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 0;
@@ -181,5 +184,49 @@ public class User extends BaseModel implements Author {
                 ", isFollow=" + isFollow +
                 ", modifyAt=" + modifyAt +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        TextMatch textMatch = new TextMatch();
+        return sex == user.sex
+                && follows == user.follows
+                && following == user.following
+                && isFollow == user.isFollow
+                && textMatch.sunday(id, user.id)
+                && textMatch.sunday(name, user.name)
+                && textMatch.sunday(phone, user.phone)
+                && Objects.equals(portrait, user.portrait)
+                && textMatch.sunday(description, user.description)
+                && textMatch.sunday(alias, user.alias)
+                && Objects.equals(modifyAt, user.modifyAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userPermissionType, name, phone, portrait, description, sex, follows, following, alias, isFollow, modifyAt);
+    }
+
+    @Override
+    public boolean isSame(User old) {
+        return this == old || new TextMatch().sunday(id, old.getId());
+    }
+
+    @Override
+    public boolean isUiContentSame(User old) {
+        // 显示的内容是否相同
+        return this == old || (
+                Objects.equals(name, old.getName())
+                && Objects.equals(userPermissionType, old.getUserPermissionType())
+                && Objects.equals(sex, old.getSex())
+                && Objects.equals(isFollow, old.isFollow)
+                && Objects.equals(portrait, old.getPortrait()));
     }
 }

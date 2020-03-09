@@ -24,6 +24,7 @@ import ink.techat.client.common.app.PresenterFragment;
 import ink.techat.client.common.widget.EmptyView;
 import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.common.widget.recycler.RecycierAdapter;
+import ink.techat.client.common.widget.recycler.WrapContentLinearLayoutManager;
 import ink.techat.client.factory.model.card.UserCard;
 import ink.techat.client.factory.presenter.contact.FollowContract;
 import ink.techat.client.factory.presenter.contact.FollowPresenter;
@@ -55,7 +56,7 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
     protected void initWidget(View root) {
         super.initWidget(root);
         // 初始化Recycler
-        mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecycler.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
         mRecycler.setAdapter(mAdapter = new RecycierAdapter<UserCard>() {
             @Override
             protected int getItemViewType(int position, UserCard userCard) {

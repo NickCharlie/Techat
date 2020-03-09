@@ -13,7 +13,6 @@ import ink.techat.client.factory.model.card.UserCard;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.net.Network;
 import ink.techat.client.factory.net.RemoteService;
-import ink.techat.client.factory.presenter.contact.FollowPresenter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,6 +81,35 @@ public class UserHelper {
         return call;
     }
 
+    public static void refreshContacts(final DataSource.Callback<List<UserCard>> callback) {
+        RemoteService service = Network.remote();
+        Call<RspModel<List<UserCard>>> call = service.userContacts();
+
+        call.enqueue(new Callback<RspModel<List<UserCard>>>() {
+
+            @Override
+            public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
+                RspModel<List<UserCard>> rspModel = response.body();
+                if (rspModel.success()) {
+                    // 拿到集合
+                    List<UserCard> cards = rspModel.getResult();
+                    if (cards == null || cards.size() == 0) {
+                        return;
+                    }
+                    // 返回数据
+                    callback.onDataLoaded(rspModel.getResult());
+                } else {
+                    Factory.decodeRspCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
+                callback.onDataNotAvailable(R.string.data_network_error);
+                Log.e("refreshContacts错误测试:",t.getMessage());
+            }
+        });
+    }
 
     public static void follow(String userId, final DataSource.Callback<UserCard> callback){
         RemoteService service = Network.remote();
@@ -107,7 +135,7 @@ public class UserHelper {
             @Override
             public void onFailure(Call<RspModel<UserCard>> call, Throwable t) {
                 callback.onDataNotAvailable(R.string.data_network_error);
-                Log.e("错误测试:", t.getMessage());
+                Log.e("follow错误测试:", t.getMessage());
             }
         });
     }

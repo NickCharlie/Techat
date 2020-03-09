@@ -14,6 +14,7 @@ import ink.techat.client.common.app.PresenterFragment;
 import ink.techat.client.common.widget.EmptyView;
 import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.common.widget.recycler.RecycierAdapter;
+import ink.techat.client.common.widget.recycler.WrapContentLinearLayoutManager;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.presenter.contact.ContactContract;
 import ink.techat.client.factory.presenter.contact.ContactPresenter;
@@ -51,7 +52,7 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
     protected void initWidget(View root) {
         super.initWidget(root);
         // 初始化Recycler
-        mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecycler.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
         mRecycler.setAdapter(mAdapter = new RecycierAdapter<User>() {
             @Override
             protected int getItemViewType(int position, User userCard) {
@@ -87,8 +88,7 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
     @Override
     protected ContactContract.Presenter initPresenter() {
         // 初始化Presenter
-        return new ContactPresenter(this) {
-        };
+        return new ContactPresenter(this);
     }
 
     @Override

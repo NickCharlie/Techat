@@ -126,6 +126,14 @@ public abstract class RecycierAdapter<Data>
     }
 
     /**
+     * 获取整个集合
+     * @return List<Data>
+     */
+    public List<Data> getItems(){
+        return mDataList;
+    }
+
+    /**
      * 插入一个数据并且通知插入更新
      * @param data Data
      */
@@ -179,6 +187,10 @@ public abstract class RecycierAdapter<Data>
             mDataList.addAll(dataList);
         }
         // 通知更新
+        notifyDataSetChanged();
+    }
+
+    public void notifyDataChanged(){
         notifyDataSetChanged();
     }
 
