@@ -176,6 +176,7 @@ public class User implements Principal {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -286,5 +287,9 @@ public class User implements Principal {
 
     public void setGroups(Set<Group> groups) {
         this.groups = groups;
+    }
+
+    public int getUserPermissionType() {
+        return userPermissionType;
     }
 }

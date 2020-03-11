@@ -10,16 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import ink.techat.client.common.app.PresenterFragment;
 import ink.techat.client.common.widget.EmptyView;
 import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.common.widget.recycler.RecycierAdapter;
 import ink.techat.client.common.widget.recycler.WrapContentLinearLayoutManager;
 import ink.techat.client.factory.model.db.User;
+import ink.techat.client.factory.persistence.Account;
 import ink.techat.client.factory.presenter.contact.ContactContract;
 import ink.techat.client.factory.presenter.contact.ContactPresenter;
 import ink.techat.client.push.R;
 import ink.techat.client.push.activities.MessageActivity;
+import ink.techat.client.push.activities.PersonalActivity;
+import ink.techat.client.push.activities.UserActivity;
 
 /**
  * @author NickCharlie
@@ -115,6 +119,13 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+        }
+
+        @OnClick(R.id.img_contact_portrait)
+        void onPortraitClick() {
+            if (Account.isComplete()) {
+                PersonalActivity.show(getContext(), mData.getId());
+            }
         }
 
         @Override

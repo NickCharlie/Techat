@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import ink.techat.client.common.widget.convention.PlaceHolderView;
 
 
 /**
  * @author Nickcharlie
  */
 public abstract class Activity extends AppCompatActivity {
+
+    protected PlaceHolderView mPlaceHolderView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,12 +28,19 @@ public abstract class Activity extends AppCompatActivity {
         if (initArgs(getIntent().getExtras())) {
             int layoutId = getContentLayoutId();
             setContentView(layoutId);
-
+            initBefore();
             initWidget();
             initData();
         } else {
             finish();
         }
+    }
+
+    /**
+     * 初始化控件调用之前
+     */
+    protected void initBefore(){
+
     }
 
     /**
@@ -97,5 +107,13 @@ public abstract class Activity extends AppCompatActivity {
         }
         super.onBackPressed();
         finish();
+    }
+
+    public PlaceHolderView getmPlaceHolderView() {
+        return mPlaceHolderView;
+    }
+
+    public void setmPlaceHolderView(PlaceHolderView mPlaceHolderView) {
+        this.mPlaceHolderView = mPlaceHolderView;
     }
 }

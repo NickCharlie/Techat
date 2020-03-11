@@ -10,6 +10,8 @@ import ink.techat.web.push.factory.UserFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author NickCharlie
@@ -17,6 +19,9 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/account")
 public class AccountService extends BaseService {
+
+    public Queue<RegisterModel> registerMsgQueue = new LinkedList<RegisterModel>();
+    public Queue<LoginModel> loginMsgQueue = new LinkedList<LoginModel>();
 
     @POST
     @Path("/login")
@@ -27,6 +32,7 @@ public class AccountService extends BaseService {
             // 返回参数异常
             return ResponseModel.buildParameterError();
         }
+        loginMsgQueue.offer(model);
         User user = UserFactory.login(model.getAccount(), model.getPassword());
         if(user != null){
             if(!Strings.isNullOrEmpty(model.getPushId())){
@@ -51,6 +57,7 @@ public class AccountService extends BaseService {
             // 返回参数异常
             return ResponseModel.buildParameterError();
         }
+        registerMsgQueue.offer(model);
         User user = UserFactory.findByPhone(model.getAccount().trim());
         if(user != null){
             if(!Strings.isNullOrEmpty(model.getPushId())){

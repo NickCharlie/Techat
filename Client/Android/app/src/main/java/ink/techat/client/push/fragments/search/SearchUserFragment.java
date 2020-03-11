@@ -31,6 +31,7 @@ import ink.techat.client.factory.presenter.contact.FollowPresenter;
 import ink.techat.client.factory.presenter.search.SearchContract;
 import ink.techat.client.factory.presenter.search.SearchUserPresenter;
 import ink.techat.client.push.R;
+import ink.techat.client.push.activities.PersonalActivity;
 import ink.techat.client.push.activities.SearchActivity;
 import ink.techat.client.push.fragments.main.ContactFragment;
 
@@ -136,6 +137,11 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
         @OnClick(R.id.img_follow)
         void onFollowClick(){
             mFollowPresenter.follow(mData.getId());
+        }
+
+        @OnClick(R.id.search_img_portrait)
+        void onSearchPortraitClick(){
+            PersonalActivity.show(getContext(), mData.getId());
         }
 
         @Override

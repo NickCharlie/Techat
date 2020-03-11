@@ -2,6 +2,8 @@ package ink.techat.client.factory.data.helper;
 
 import android.util.Log;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import java.util.List;
 
 import ink.techat.client.factory.Factory;
@@ -11,6 +13,7 @@ import ink.techat.client.factory.model.api.RspModel;
 import ink.techat.client.factory.model.api.user.UserUpdateModel;
 import ink.techat.client.factory.model.card.UserCard;
 import ink.techat.client.factory.model.db.User;
+import ink.techat.client.factory.model.db.User_Table;
 import ink.techat.client.factory.net.Network;
 import ink.techat.client.factory.net.RemoteService;
 import retrofit2.Call;
@@ -138,5 +141,69 @@ public class UserHelper {
                 Log.e("follow错误测试:", t.getMessage());
             }
         });
+    }
+
+
+    /**
+     * 搜索用户, 优先本地缓存
+     * 如果没有再从网络拉取
+     * @param id Id
+     * @return User
+     */
+    public static User search(String id){
+        User user = findFromLocal(id);
+        if (user == null){
+            return findFromNet(id);
+        }
+        return user;
+    }
+
+    /**
+     * 搜索用户, 优先从网络拉取
+     * 如果没有再从本地缓存拉取
+     * @param id Id
+     * @return User
+     */
+    public static User searchFirstOfNet(String id){
+        User user = findFromNet(id);
+        if (user == null){
+            return findFromLocal(id);
+        }
+        return user;
+    }
+
+    /**
+     * 从本地查询一个用户的信息
+     * @param id Id
+     * @return User
+     */
+    public static User findFromLocal(String id){
+        return SQLite.select()
+                .from(User.class)
+                .where(User_Table.id.eq(id))
+                .querySingle();
+    }
+
+    /**
+     * 从网络查询一个用户的信息
+     * @param id Id
+     * @return User
+     */
+    public static User findFromNet(String id){
+        RemoteService remoteService = Network.remote();
+        try {
+            Response<RspModel<UserCard>> response = remoteService.userFind(id).execute();
+            UserCard card = response.body().getResult();
+            if (card != null){
+                // TODO 数据库刷新, 但是没有通知
+                User user = card.build();
+                user.save();
+
+                return card.build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

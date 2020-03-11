@@ -91,11 +91,7 @@ public class MainActivity extends Activity
         menu.performIdentifierAction(R.id.action_home, 0);
 
         if (!TextUtils.isEmpty(getUser().getPortrait())){
-            Glide.with(this)
-                    .asDrawable()
-                    .load(getUser().getPortrait())
-                    .centerCrop()
-                    .into(mPortrait);
+            mPortrait.setup(Glide.with(this), Account.getUser());
         }
     }
 
@@ -158,7 +154,7 @@ public class MainActivity extends Activity
     @OnClick(R.id.img_portrait)
     void onPortraitClick() {
         if (Account.isComplete()) {
-            // TODO
+            PersonalActivity.show(this, Account.getUserId());
         }else {
             UserActivity.show(this);
         }
@@ -229,6 +225,4 @@ public class MainActivity extends Activity
                 .setDuration(480)
                 .start();
     }
-
-
 }
