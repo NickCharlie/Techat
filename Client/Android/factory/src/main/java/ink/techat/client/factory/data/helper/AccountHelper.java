@@ -88,7 +88,7 @@ public class AccountHelper {
                 AccountRspModel accountRspModel = rspModel.getResult();
                 final User user = accountRspModel.getUser();
                 // 保存到数据库, 将用户信息存储到持久化xml
-                user.save();
+                DbHelper.save(User.class, user);
                 Account.login(accountRspModel);
 
                 // 判断绑定状态
@@ -115,7 +115,7 @@ public class AccountHelper {
             }
             // 网络请求失败
             callback.onDataNotAvailable(R.string.data_network_error);
-            Log.i("通知：",t.getMessage());
+            Log.i("AccountHelper通知：",t.getMessage());
         }
     }
 }

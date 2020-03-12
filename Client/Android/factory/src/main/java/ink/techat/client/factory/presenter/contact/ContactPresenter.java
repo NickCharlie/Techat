@@ -3,20 +3,16 @@ package ink.techat.client.factory.presenter.contact;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
-import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
-import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ink.techat.client.factory.data.DataSource;
+import ink.techat.client.factory.data.helper.DbHelper;
 import ink.techat.client.factory.data.helper.UserHelper;
 import ink.techat.client.factory.model.card.UserCard;
-import ink.techat.client.factory.model.db.AppDatabase;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.model.db.User_Table;
 import ink.techat.client.factory.persistence.Account;
@@ -61,15 +57,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
                     users.add(userCard.build());
                 }
 
-                // 丢到事务中保存数据库
-                DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
-                definition.beginTransactionAsync(new ITransaction() {
-                    @Override
-                    public void execute(DatabaseWrapper databaseWrapper) {
-                        FlowManager.getModelAdapter(User.class)
-                                .saveAll(users);
-                    }
-                }).build().execute();
+                DbHelper.save(User.class, (User) users);
                 List<User> old = getmView().getRecyclerAdapter().getItems();
                 // 新旧联系人数据对比
                 diff(old, users);

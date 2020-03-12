@@ -16,6 +16,7 @@ import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.model.db.User_Table;
 import ink.techat.client.factory.net.Network;
 import ink.techat.client.factory.net.RemoteService;
+import ink.techat.client.utils.CollectionUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,9 +37,8 @@ public class UserHelper {
                 RspModel<UserCard> rspModel = response.body();
                 if (rspModel != null && rspModel.success()){
                     UserCard userCard = rspModel.getResult();
-                    // 数据库存储用户信息
-                    User user = userCard.build();
-                    user.save();
+                    // 唤起进行统一保存的操作
+                    Factory.getUserCenter().dispatch(userCard);
                     // 返回成功
                     callback.onDataLoaded(userCard);
                 }else {
@@ -84,31 +84,34 @@ public class UserHelper {
         return call;
     }
 
-    public static void refreshContacts(final DataSource.Callback<List<UserCard>> callback) {
+    /**
+     * 刷新联系人操作, 取消了原来的Callback, 直接储存到数据库
+     * 通过数据库观察者进行通知界面更新
+     * 界面更新的时候进行对比, 差异更新
+     */
+    public static void refreshContacts() {
         RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userContacts();
 
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
-
             @Override
             public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
                 RspModel<List<UserCard>> rspModel = response.body();
                 if (rspModel.success()) {
-                    // 拿到集合
+                    // 拿到数据集合
                     List<UserCard> cards = rspModel.getResult();
                     if (cards == null || cards.size() == 0) {
                         return;
                     }
-                    // 返回数据
-                    callback.onDataLoaded(rspModel.getResult());
+                    // 唤起进行统一保存的操作
+                    Factory.getUserCenter().dispatch(CollectionUtil.toArray(cards, UserCard.class));
                 } else {
-                    Factory.decodeRspCode(rspModel, callback);
+                    Factory.decodeRspCode(rspModel, null);
                 }
             }
 
             @Override
             public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
-                callback.onDataNotAvailable(R.string.data_network_error);
                 Log.e("refreshContacts错误测试:",t.getMessage());
             }
         });
@@ -124,9 +127,8 @@ public class UserHelper {
                 RspModel<UserCard> rspModel = response.body();
                 if (rspModel.success()) {
                     UserCard userCard = rspModel.getResult();
-                    // 保存到本地数据库
-                    User user = userCard.build();
-                    user.save();
+                    // 唤起进行统一保存的操作
+                    Factory.getUserCenter().dispatch(userCard);
                     // TODO: 通知联系人列表刷新
                     // 返回数据
                     callback.onDataLoaded(rspModel.getResult());
@@ -196,9 +198,7 @@ public class UserHelper {
             UserCard card = response.body().getResult();
             if (card != null){
                 // TODO 数据库刷新, 但是没有通知
-                User user = card.build();
-                user.save();
-
+                Factory.getUserCenter().dispatch(card);
                 return card.build();
             }
         } catch (Exception e) {
