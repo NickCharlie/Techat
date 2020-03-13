@@ -1,17 +1,24 @@
 package ink.techat.client.factory.data.group;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
+import ink.techat.client.factory.data.helper.DbHelper;
+import ink.techat.client.factory.data.helper.UserHelper;
 import ink.techat.client.factory.data.message.MessageDispatcher;
 import ink.techat.client.factory.model.card.GroupCard;
 import ink.techat.client.factory.model.card.GroupMemberCard;
+import ink.techat.client.factory.model.db.Group;
+import ink.techat.client.factory.model.db.GroupMember;
+import ink.techat.client.factory.model.db.User;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class GroupDispatcher implements GroupCenter {
 
     private static GroupCenter INSTANCE;
-    private final Executor executor = newFixedThreadPool(1);
+    private final Executor executor = newFixedThreadPool(2);
     public static GroupCenter instance(){
         if (INSTANCE != null){
             return INSTANCE;
@@ -52,7 +59,17 @@ public class GroupDispatcher implements GroupCenter {
 
         @Override
         public void run() {
-
+            List<Group> groups = new ArrayList<>();
+            for (GroupCard card : cards) {
+                User owner = UserHelper.search(card.getOwnerId());
+                if (owner != null) {
+                    Group group = card.build(owner);
+                    groups.add(group);
+                }
+            }
+            if (groups.size() > 0) {
+                DbHelper.save(Group.class, groups.toArray(new Group[0]));
+            }
         }
     }
 
@@ -68,7 +85,20 @@ public class GroupDispatcher implements GroupCenter {
 
         @Override
         public void run() {
-
+            List<GroupMember> members = new ArrayList<>();
+            // 搜索群成员对应的人的信息
+            for (GroupMemberCard model : cards) {
+                // 群成员对应的群的信息
+                User user = UserHelper.search(model.getUserId());
+                Group group = GroupHelper.find(model.getGroupId());
+                if (user != null && group != null) {
+                    GroupMember member = model.build(group, user);
+                    members.add(member);
+                }
+            }
+            if (members.size() > 0) {
+                DbHelper.save(GroupMember.class, members.toArray(new GroupMember[0]));
+            }
         }
     }
 }

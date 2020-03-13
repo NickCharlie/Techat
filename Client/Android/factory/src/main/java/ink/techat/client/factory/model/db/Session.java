@@ -14,6 +14,7 @@ import ink.techat.client.factory.utils.DiffUiDataCallback;
 
 /**
  * 本地的会话表
+ * @author NickCharlie
  */
 @Table(database = AppDatabase.class)
 public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffer<Session> {
@@ -186,6 +187,9 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
         return identify;
     }
 
+    public void refreshToNow() {
+        // TODO: 刷新Session
+    }
 
     /**
      * 对于会话信息，最重要的部分进行提取

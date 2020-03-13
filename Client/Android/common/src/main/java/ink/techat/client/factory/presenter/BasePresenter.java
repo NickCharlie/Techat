@@ -1,15 +1,14 @@
 package ink.techat.client.factory.presenter;
 
 
-import ink.techat.client.factory.model.db.User;
-
 /**
  * @author NickCharlie
  * @param <T>
  */
 public class BasePresenter<T extends BaseContract.View> implements BaseContract.Presenter{
+
     private T mView;
-    public User globalUser;
+
     public BasePresenter(T view){
         setView(view);
     }

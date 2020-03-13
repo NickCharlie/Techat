@@ -16,7 +16,7 @@ import ink.techat.client.factory.utils.DiffUiDataCallback;
 
 /**
  * 本地的消息表
- *
+ * @author NickCharlie
  */
 @Table(database = AppDatabase.class)
 public class Message extends BaseModel implements DiffUiDataCallback.UiDataDiffer<Message>, Serializable {

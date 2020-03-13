@@ -26,7 +26,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':common')
     testImplementation 'junit:junit:4.13'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
@@ -40,6 +39,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
     //noinspection GradleCompatible
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    api project(path: ':common')
 
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.dbflowVersion}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${rootProject.ext.dbflowVersion}"

@@ -11,12 +11,13 @@ import java.util.concurrent.Executor;
 
 import ink.techat.client.common.app.Application;
 import ink.techat.client.factory.data.DataSource;
+import ink.techat.client.factory.data.group.GroupCenter;
+import ink.techat.client.factory.data.group.GroupDispatcher;
 import ink.techat.client.factory.data.message.MessageCenter;
 import ink.techat.client.factory.data.message.MessageDispatcher;
 import ink.techat.client.factory.data.user.UserCenter;
 import ink.techat.client.factory.data.user.UserDispatcher;
 import ink.techat.client.factory.model.api.RspModel;
-import ink.techat.client.factory.model.db.Message;
 import ink.techat.client.factory.persistence.Account;
 import ink.techat.client.factory.utils.DBFlowExclusionStrategy;
 
@@ -185,5 +186,13 @@ public class Factory {
      */
     public static MessageCenter getMessageCenter(){
         return MessageDispatcher.instance();
+    }
+
+    /**
+     * 获取一个群中心的实现类
+     * @return 群中心的规范接口
+     */
+    public static GroupCenter getGroupCenter(){
+        return GroupDispatcher.instance();
     }
 }

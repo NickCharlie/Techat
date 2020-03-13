@@ -6,13 +6,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ink.techat.client.factory.data.DataSource;
-import ink.techat.client.factory.data.helper.DbHelper;
 import ink.techat.client.factory.data.helper.UserHelper;
-import ink.techat.client.factory.model.card.UserCard;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.model.db.User_Table;
 import ink.techat.client.factory.persistence.Account;
@@ -48,26 +44,30 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
                 }).execute();
 
         // 加载网络数据
-        UserHelper.refreshContacts(new DataSource.Callback<List<UserCard>>() {
-            @Override
-            public void onDataLoaded(final List<UserCard> userCards) {
+        UserHelper.refreshContacts();
 
-                final List<User> users = new ArrayList<>();
-                for (UserCard userCard : userCards) {
-                    users.add(userCard.build());
-                }
-
-                DbHelper.save(User.class, (User) users);
-                List<User> old = getmView().getRecyclerAdapter().getItems();
-                // 新旧联系人数据对比
-                diff(old, users);
-            }
-
-            @Override
-            public void onDataNotAvailable(int strRes) {
-                // 网络刷新失败, 因为本地有数据, 忽略错误
-            }
-        });
+        /*
+          new DataSource.Callback<List<UserCard>>() {
+                      @Override
+         *             public void onDataLoaded(final List<UserCard> userCards) {
+         *
+         *                 final List<User> users = new ArrayList<>();
+         *                 for (UserCard userCard : userCards) {
+         *                     users.add(userCard.build());
+         *                 }
+         *
+         *                 DbHelper.save(User.class, (User) users);
+         *                 List<User> old = getmView().getRecyclerAdapter().getItems();
+         *                 // 新旧联系人数据对比
+         *                 diff(old, users);
+         *             }
+         *
+         *             @Override
+         *             public void onDataNotAvailable(int strRes) {
+         *                 // 网络刷新失败, 因为本地有数据, 忽略错误
+         *             }
+         *         }
+         */
 
         // TODO: BUG修复
         //  1. 网络获取数据后没有刷新联系人

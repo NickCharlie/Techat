@@ -63,7 +63,6 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
     implementation project(path: ':factory')
-    implementation project(path: ':common')
 
     implementation 'com.google.android.material:material:1.1.0'
     implementation "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
@@ -74,7 +73,6 @@ dependencies {
 
     implementation "com.yalantis:ucrop:$rootProject.ext.ucropVersion"
     implementation "pub.devrel:easypermissions:$rootProject.ext.easyPMVersion"
-    implementation project(path: ':common')
     implementation 'com.google.code.gson:gson:2.8.6'
 
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.dbflowVersion}"
