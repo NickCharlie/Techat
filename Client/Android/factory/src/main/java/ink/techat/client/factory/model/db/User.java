@@ -6,13 +6,11 @@ import androidx.annotation.NonNull;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
 import java.util.Objects;
 
 import ink.techat.client.factory.model.Author;
-import ink.techat.client.factory.utils.DiffUiDataCallback;
 import ink.techat.client.utils.TextMatch;
 
 /**
@@ -20,7 +18,7 @@ import ink.techat.client.utils.TextMatch;
  * @author NickCharlie
  */
 @Table(database = AppDatabase.class)
-public class User extends BaseModel implements Author, DiffUiDataCallback.UiDataDiffer<User> {
+public class User extends BaseDbModel<User> implements Author {
 
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 0;
@@ -211,7 +209,7 @@ public class User extends BaseModel implements Author, DiffUiDataCallback.UiData
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userPermissionType, name, phone, portrait, description, sex, follows, following, alias, isFollow, modifyAt);
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package ink.techat.client.factory.data.helper;
 
+import android.util.Log;
+
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -7,6 +9,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.raizlabs.android.dbflow.structure.ModelAdapter;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
+import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,7 +57,7 @@ public class DbHelper {
      * @param <Model> 表的泛型
      * @return Set<ChangedListener> 监听器集合
      */
-    public static <Model extends BaseModel> Set<ChangedListener> getListener(final Class<Model> tClass){
+    private static <Model extends BaseModel> Set<ChangedListener> getListener(final Class<Model> tClass){
         if (INSTANCE.changedListeners.containsKey(tClass)){
             return INSTANCE.changedListeners.get(tClass);
         }
@@ -102,17 +105,14 @@ public class DbHelper {
         if (models == null || models.length == 0){
             return;
         }
+        // TODO: BUG 事务中保存不成功
         // 丢到事务中保存数据库
         DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
         definition.beginTransactionAsync(new ITransaction() {
             @Override
             public void execute(DatabaseWrapper databaseWrapper) {
                 ModelAdapter<Model> adapter = FlowManager.getModelAdapter(tClass);
-                if (models.length > 1){
-                    adapter.saveAll(Arrays.asList(models));
-                }else {
-                    adapter.save(models[0]);
-                }
+                adapter.saveAll(Arrays.asList(models));
                 INSTANCE.notifySave(tClass, models);
             }
         }).build().execute();
@@ -259,7 +259,7 @@ public class DbHelper {
      * 通知监听器
      */
     @SuppressWarnings({"unused", "unchecked"})
-    public interface ChangedListener<Data>{
+    public interface ChangedListener<Data extends BaseModel> {
         void onDataSave(Data... data);
         void onDataDelete(Data... data);
     }

@@ -4,19 +4,17 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import ink.techat.client.factory.utils.DiffUiDataCallback;
 
 /**
  * 群信息Model
  */
 @Table(database = AppDatabase.class)
-public class Group extends BaseModel implements Serializable, DiffUiDataCallback.UiDataDiffer<Group> {
+public class Group extends BaseDbModel<Group> implements Serializable {
     // 群Id
     @PrimaryKey
     private String id;

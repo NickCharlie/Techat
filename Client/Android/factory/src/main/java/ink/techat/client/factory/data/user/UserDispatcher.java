@@ -10,7 +10,6 @@ import java.util.concurrent.Executor;
 import ink.techat.client.factory.data.helper.DbHelper;
 import ink.techat.client.factory.model.card.UserCard;
 import ink.techat.client.factory.model.db.User;
-import ink.techat.client.utils.CollectionUtil;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
@@ -55,17 +54,19 @@ public class UserDispatcher implements UserCenter {
 
         @Override
         public void run() {
+            // 单被线程调度的时候触发
             List<User> users = new ArrayList<>();
             for (UserCard card : cards) {
-                // 进行card过滤操作
-                if (card == null || TextUtils.isEmpty(card.getId())){
+                // 进行过滤操作
+                if (card == null || TextUtils.isEmpty(card.getId())) {
                     continue;
                 }
-                // 添加一个User
+                // 添加操作
                 users.add(card.build());
             }
-            // 进行数据库存储并且分发, 异步
-            DbHelper.save(User.class, CollectionUtil.toArray(users, User.class));
+            User[] userss = users.toArray(new User[0]);
+            // 进行数据库存储，并分发通知, 异步的操作
+            DbHelper.save(User.class, users.toArray(new User[0]));
         }
     }
 }

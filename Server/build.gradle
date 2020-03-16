@@ -10,6 +10,10 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven{
+        name "getui-nexus"
+        url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
+    }
 }
 
 dependencies {
@@ -17,6 +21,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     //Google Guava: 一些Java类封装
     compile 'com.google.guava:guava:21.0'
+    // 推送框架
+    compile "com.gexin.platform:gexin-rp-sdk-http:4.1.1.0"
+
     //Jersey Restful接口框架
     compile 'org.glassfish.jersey.core:jersey-client:2.26-b03'
     compile 'org.glassfish.jersey.core:jersey-server:2.26-b03'

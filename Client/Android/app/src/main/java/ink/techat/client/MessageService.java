@@ -31,7 +31,7 @@ public class MessageService extends GTIntentService {
      */
     @Override
     public void onReceiveClientId(Context context, String s) {
-        Log.i(TAG, "GET_CLIENTID-设备ID" + s);
+        Log.i(TAG, "GET_CLIENT_ID-设备ID" + s);
         // 设备Id初始化, 获取设备Id
         onClientInit(s);
     }
@@ -43,7 +43,12 @@ public class MessageService extends GTIntentService {
      */
     @Override
     public void onReceiveMessageData(Context context, GTTransmitMessage gtTransmitMessage) {
-
+        byte[] payload = gtTransmitMessage.getPayload();
+        if (payload != null){
+            String message = new String(payload);
+            Log.i(TAG, "GET_MSG_DATA:" + message);
+            onMessageArrived(message);
+        }
     }
 
     @Override

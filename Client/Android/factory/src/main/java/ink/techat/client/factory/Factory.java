@@ -1,12 +1,17 @@
 package ink.techat.client.factory;
 
+import android.util.Log;
+
 import androidx.annotation.StringRes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import ink.techat.client.common.app.Application;
@@ -17,7 +22,12 @@ import ink.techat.client.factory.data.message.MessageCenter;
 import ink.techat.client.factory.data.message.MessageDispatcher;
 import ink.techat.client.factory.data.user.UserCenter;
 import ink.techat.client.factory.data.user.UserDispatcher;
+import ink.techat.client.factory.model.api.PushModel;
 import ink.techat.client.factory.model.api.RspModel;
+import ink.techat.client.factory.model.card.GroupCard;
+import ink.techat.client.factory.model.card.GroupMemberCard;
+import ink.techat.client.factory.model.card.MessageCard;
+import ink.techat.client.factory.model.card.UserCard;
 import ink.techat.client.factory.persistence.Account;
 import ink.techat.client.factory.utils.DBFlowExclusionStrategy;
 
@@ -27,6 +37,9 @@ import static java.util.concurrent.Executors.newFixedThreadPool;
  * @author NickCharlie
  */
 public class Factory {
+
+    private static final String TAG = Factory.class.getSimpleName();
+
     /**
      * 单例模式
      * Executor executor 全局的线程池
@@ -169,7 +182,57 @@ public class Factory {
      * @param message Message
      */
     public static void dispatchPush(String message){
-        // TODO: 处理消息
+        // 检查登录状态
+        if (!Account.isLogin()){
+            return;
+        }
+        PushModel model = PushModel.decode(message);
+        if (model == null){
+            return;
+        }
+        Log.i(TAG, model.getEntities().toString());
+        // 对推送集合进行遍历
+        for (PushModel.Entity entity : model.getEntities()) {
+            switch (entity.type){
+                case PushModel.ENTITY_TYPE_LOGOUT:
+                    INSTANCE.logout();
+                    return;
+
+                case PushModel.ENTITY_TYPE_MESSAGE: {
+                    MessageCard card = getGson().fromJson(entity.content, MessageCard.class);
+                    getMessageCenter().dispatch(card);
+                    break;
+                }
+
+                case PushModel.ENTITY_TYPE_ADD_FRIEND: {
+                    UserCard card = getGson().fromJson(entity.content, UserCard.class);
+                    getUserCenter().dispatch(card);
+                    break;
+                }
+
+                case PushModel.ENTITY_TYPE_ADD_GROUP: {
+                    GroupCard card = getGson().fromJson(entity.content, GroupCard.class);
+                    getGroupCenter().dispatch(card);
+                    break;
+                }
+
+                case PushModel.ENTITY_TYPE_ADD_GROUP_MEMBERS:
+                case PushModel.ENTITY_TYPE_MODIFY_GROUP_MEMBERS: {
+                    // 群成员变更, 群成员的列表
+                    Type type = new TypeToken<List<GroupMemberCard>>(){}.getType();
+                    List<GroupMemberCard> card = getGson().fromJson(entity.content, type);
+                    getGroupCenter().dispatch(card.toArray(new GroupMemberCard[0]));
+                    break;
+                }
+
+                case PushModel.ENTITY_TYPE_EXIT_GROUP_MEMBERS:{
+                    //TODO: 成员退出的推送
+
+                }
+
+                default:// TODO
+            }
+        }
     }
 
     /**

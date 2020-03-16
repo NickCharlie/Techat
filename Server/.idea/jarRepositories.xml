@@ -16,5 +16,10 @@
       <option name="name" value="MavenRepo" />
       <option name="url" value="https://repo.maven.apache.org/maven2/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="getui-nexus" />
+      <option name="name" value="getui-nexus" />
+      <option name="url" value="http://mvn.gt.igexin.com/nexus/content/repositories/releases/" />
+    </remote-repository>
   </component>
 </project>
