@@ -60,12 +60,6 @@ public class UserService extends BaseService {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseModel<List<UserCard>> contact(){
         User self = getSelf();
-        PushModel model = new PushModel();
-        model.add(new PushModel.Entity(0, "Hello"));
-
-        PushDispatcher dispatcher = new PushDispatcher();
-        dispatcher.add(self, model);
-        dispatcher.submit();
 
         List<User> userList = UserFactory.contacts(self);
         List<UserCard> userCards = userList.stream()

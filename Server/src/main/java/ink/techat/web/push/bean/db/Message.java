@@ -1,5 +1,6 @@
 package ink.techat.web.push.bean.db;
 
+import ink.techat.web.push.bean.api.message.MessageCreateModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -21,6 +22,48 @@ public class Message {
     public static final int TYPE_PIC = 2;
     public static final int TYPE_FILE = 3;
     public static final int TYPE_AUDIO = 4;
+    /**
+     * 消息接收者类型
+     */
+    public static final int RECEIVER_TYPE_NONE = 1;
+    public static final int RECEIVER_TYPE_GROUP = 2;
+
+    public Message() {
+
+    }
+
+    /**
+     * 发送给联系人消息的构造函数
+     * @param sender 发送者
+     * @param receiver 接收者
+     * @param model 消息model
+     */
+    public Message(User sender, User receiver, MessageCreateModel model) {
+        this.sender = sender;
+        this.receiver = receiver;
+
+        this.id = model.getId();
+        this.content = model.getContent();
+        this.attach = model.getAttach();
+        this.type = model.getType();
+    }
+
+    /**
+     * 发送给群消息的构造函数
+     * @param sender 发送者
+     * @param receiver 接收者
+     * @param model 消息model
+     */
+    public Message(User sender, Group receiver, MessageCreateModel model) {
+        this.sender = sender;
+        this.group = receiver;
+
+        this.id = model.getId();
+        this.content = model.getContent();
+        this.attach = model.getAttach();
+        this.type = model.getType();
+    }
+
     /**
      * 主键Id
      * 主键生成存储的类型为UUID
