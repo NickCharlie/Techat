@@ -32,7 +32,7 @@
         <activity
             android:name=".activities.MessageActivity"
             android:label="@string/title_activity_message"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.Message">
         </activity>
         <activity
             android:name=".activities.SearchActivity"

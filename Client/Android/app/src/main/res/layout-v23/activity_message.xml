@@ -7,9 +7,11 @@
     tools:context="ink.techat.client.push.activities.MessageActivity">
 
     <ImageView
+        android:id="@+id/message_action_bg"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:foreground="@color/black_alpha_16"
         android:scaleType="centerCrop"
         android:contentDescription="@string/app_name" />
 

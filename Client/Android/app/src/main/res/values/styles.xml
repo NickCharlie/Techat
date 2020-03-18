@@ -54,7 +54,10 @@
     </style>
 
     <style name="AppTheme.Account" parent="AppTheme.TransStatusBar" />
-
+    <style name="AppTheme.Message" parent="AppTheme.TransStatusBar" >
+        <item name="android:windowBackground">@color/windowsBackgroundLight</item>
+    </style>
+    
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

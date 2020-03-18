@@ -1,0 +1,141 @@
+<ink.techat.client.common.widget.MessageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="ink.techat.client.push.fragments.message.ChatUserFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_chat_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/trans">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/CollapsingToolbar_chat_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/app_name"
+                app:toolbarId="@id/toolbar_chat_user"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.Title"
+                app:expandedTitleGravity="bottom|center_horizontal"
+                app:expandedTitleMarginBottom="@dimen/len_16"
+                app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:contentScrim="@color/colorPrimary"
+                android:background="@color/trans">
+
+                <ImageView
+                    android:id="@+id/img_header_chat_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/len_128"
+                    android:background="@color/colorPrimary"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@color/trans"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7"/>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_chat_user"
+                    android:paddingTop="@dimen/statusBarSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionBarWithStatusBarSize"
+                    app:layout_collapseMode="pin"/>
+
+                <ink.techat.client.common.widget.PortraitView
+                    android:id="@+id/img_chat_user_portrait"
+                    android:layout_width="@dimen/portraitSize"
+                    android:layout_height="@dimen/portraitSize"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_portrait"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.3"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="1dp"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_chat_user"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_alpha_224"
+        android:orientation="horizontal"
+        android:elevation="2dp"
+        android:outlineProvider="bounds"
+        tools:targetApi="lollipop">
+
+        <ImageView
+            android:id="@+id/btn_chat_user_record"
+            android:padding="@dimen/len_8"
+            android:src="@drawable/ic_record"
+            android:tint="@color/textPrimary"
+            android:foreground="@drawable/ic_touch_fg"
+            android:layout_width="@dimen/len_44"
+            android:layout_height="@dimen/len_44"
+            android:enabled="true"
+            android:contentDescription="@string/app_name" />
+
+        <EditText
+            android:id="@+id/edit_chat_user"
+            android:minHeight="@dimen/len_44"
+            android:maxHeight="@dimen/len_68"
+            android:padding="@dimen/len_4"
+            android:hint="@string/label_chat_edit_hint"
+            android:lineSpacingExtra="0dp"
+            android:lineSpacingMultiplier="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecond"
+            android:textCursorDrawable="@drawable/ic_cursor"
+            android:background="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/btn_chat_user_face"
+            android:padding="@dimen/len_8"
+            android:src="@drawable/ic_emoji"
+            android:tint="@color/textPrimary"
+            android:foreground="@drawable/ic_touch_fg"
+            android:layout_width="@dimen/len_44"
+            android:layout_height="@dimen/len_44"
+            android:enabled="true"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/btn_chat_user_submit"
+            android:padding="@dimen/len_8"
+            android:src="@drawable/ic_submit"
+            android:tint="@color/textPrimary"
+            android:foreground="@drawable/ic_touch_fg"
+            android:layout_width="@dimen/len_44"
+            android:layout_height="@dimen/len_44"
+            android:enabled="true"
+            android:contentDescription="@string/app_name" />
+
+    </LinearLayout>
+
+</ink.techat.client.common.widget.MessageLayout>

@@ -22,8 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.qiujuer.genius.ui.Ui;
 
-import org.w3c.dom.Text;
-
 import java.util.Objects;
 
 import butterknife.BindView;

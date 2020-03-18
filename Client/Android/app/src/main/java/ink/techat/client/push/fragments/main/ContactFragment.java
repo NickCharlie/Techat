@@ -16,6 +16,7 @@ import ink.techat.client.common.widget.EmptyView;
 import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.common.widget.recycler.RecycierAdapter;
 import ink.techat.client.common.widget.recycler.WrapContentLinearLayoutManager;
+import ink.techat.client.factory.model.Author;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.persistence.Account;
 import ink.techat.client.factory.presenter.contact.ContactContract;
