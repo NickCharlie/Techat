@@ -10,6 +10,9 @@ import com.google.android.material.appbar.AppBarLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 import ink.techat.client.common.widget.PortraitView;
+import ink.techat.client.factory.model.db.User;
+import ink.techat.client.factory.presenter.message.ChatContract;
+import ink.techat.client.factory.presenter.message.ChatUserPresenter;
 import ink.techat.client.push.R;
 import ink.techat.client.push.activities.PersonalActivity;
 
@@ -18,7 +21,7 @@ import ink.techat.client.push.activities.PersonalActivity;
  *
  * @author NickCharlie
  */
-public class ChatUserFragment extends ChatFragment {
+public class ChatUserFragment extends ChatFragment<User> implements ChatContract.UserView {
 
     @BindView(R.id.img_chat_user_portrait)
     PortraitView mPortrait;
@@ -32,6 +35,17 @@ public class ChatUserFragment extends ChatFragment {
     @Override
     protected int getContentLayoutId() {
         return R.layout.fragment_chat_user;
+    }
+
+    @Override
+    protected ChatContract.Presenter initPresenter() {
+        // 初始化Presenter
+        return new ChatUserPresenter(this, mReceiverId);
+    }
+
+    @Override
+    public void onInit(User user) {
+        // 对和你聊天的联系人的信息进行初始化
     }
 
     @Override

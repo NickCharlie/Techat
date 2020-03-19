@@ -23,13 +23,14 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import ink.techat.client.common.app.Fragment;
+import ink.techat.client.common.app.PresenterFragment;
 import ink.techat.client.common.widget.PortraitView;
 import ink.techat.client.common.widget.adapter.TextWatcherAdapter;
 import ink.techat.client.common.widget.recycler.RecycierAdapter;
 import ink.techat.client.factory.model.db.Message;
 import ink.techat.client.factory.model.db.User;
 import ink.techat.client.factory.persistence.Account;
+import ink.techat.client.factory.presenter.message.ChatContract;
 import ink.techat.client.push.R;
 import ink.techat.client.push.activities.MessageActivity;
 
@@ -38,8 +39,10 @@ import ink.techat.client.push.activities.MessageActivity;
  *
  * @author NickCharlie
  */
-@SuppressWarnings("WeakerAccess")
-public abstract class ChatFragment extends Fragment implements AppBarLayout.OnOffsetChangedListener {
+@SuppressWarnings({"WeakerAccess", "AlibabaAbstractClassShouldStartWithAbstractNaming"})
+public abstract class ChatFragment<InitModel> extends PresenterFragment<ChatContract.Presenter>
+        implements AppBarLayout.OnOffsetChangedListener,
+        ChatContract.View<InitModel> {
 
     protected String mReceiverId;
     protected Adapter mAdapter;
@@ -89,6 +92,12 @@ public abstract class ChatFragment extends Fragment implements AppBarLayout.OnOf
         initEditContent();
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        mPresenter.start();
+    }
+
     protected void initToolbar() {
         Toolbar toolbar = mToolbar;
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -136,7 +145,10 @@ public abstract class ChatFragment extends Fragment implements AppBarLayout.OnOf
     @OnClick(R.id.btn_chat_user_submit)
     void onSubmitClick() {
         if (mSubmit.isActivated()) {
-            // TODO: 发送消息
+            // 发送
+            String content = mContent.getText().toString();
+            mContent.setText("");
+            mPresenter.pushText(content);
         } else {
             onMoreClick();
         }
@@ -144,6 +156,16 @@ public abstract class ChatFragment extends Fragment implements AppBarLayout.OnOf
 
     private void onMoreClick() {
         // TODO: 点击更多的操作
+    }
+
+    @Override
+    public RecycierAdapter<Message> getRecyclerAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    public void onAdapterDataChanged() {
+        // 界面没有展位布局, 是一直显示的, 不需要做处理
     }
 
     @SuppressWarnings("DuplicateBranchesInSwitch")
