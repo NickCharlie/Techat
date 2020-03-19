@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/len_4"
+    android:paddingBottom="@dimen/len_4"
+    android:paddingStart="@dimen/len_16"
+    android:paddingEnd="@dimen/len_56"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/text_chat_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/portraitSize"
+        android:layout_marginStart="@dimen/len_20"
+        android:paddingTop="@dimen/len_8"
+        android:paddingBottom="@dimen/len_8"
+        android:paddingStart="@dimen/len_28"
+        android:paddingEnd="@dimen/len_8"
+        android:background="@drawable/cell_chat_bg"
+        android:layout_gravity="start"
+        tools:ignore="RtlSymmetry">
+
+        <TextView
+            android:id="@+id/txt_chat_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/len_24"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="@string/app_name"
+            android:textColor="@color/textPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+    <ink.techat.client.common.widget.PortraitView
+        android:id="@+id/img_chat_portrait"
+        android:layout_width="@dimen/portraitSize"
+        android:layout_height="@dimen/portraitSize"
+        android:padding="1px"
+        android:src="@drawable/default_portrait"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/len_2"
+        android:layout_gravity="start"/>
+
+
+</FrameLayout>

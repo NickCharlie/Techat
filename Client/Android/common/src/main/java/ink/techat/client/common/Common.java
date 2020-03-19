@@ -1,5 +1,8 @@
 package ink.techat.client.common;
 
+/**
+ * @author NickCharlie
+ */
 public class Common {
 
     /**
@@ -13,4 +16,3 @@ public class Common {
         String API_URL = "http://122.114.81.108:8080/Techat/api/";
     }
 }
-
