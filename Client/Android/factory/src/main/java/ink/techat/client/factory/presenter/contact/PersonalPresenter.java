@@ -37,6 +37,11 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
         });
     }
 
+    /**
+     * 进行界面的设置
+     * @param view View
+     * @param user User
+     */
     private void onLoaded(final PersonalContract.View view, final User user){
         this.user = user;
         // 判断是不是自己
@@ -49,9 +54,12 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
-                view.onLoadDone(user);
-                view.setFollowStatus(isFollow);
-                view.allowSayHello(allowSayHello);
+                final PersonalContract.View view = getmView();
+                if (view != null) {
+                    view.onLoadDone(user);
+                    view.setFollowStatus(isFollow);
+                    view.allowSayHello(allowSayHello);
+                }
             }
         });
     }

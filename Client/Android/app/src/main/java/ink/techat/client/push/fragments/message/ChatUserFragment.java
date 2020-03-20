@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 
 import butterknife.BindView;
@@ -46,6 +47,13 @@ public class ChatUserFragment extends ChatFragment<User> implements ChatContract
     @Override
     public void onInit(User user) {
         // 对和你聊天的联系人的信息进行初始化
+        mPortrait.setup(Glide.with(this), user.getPortrait());
+        mCollapsingToolbarLayout.setTitle(user.getName());
+    }
+
+    @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
     }
 
     @Override

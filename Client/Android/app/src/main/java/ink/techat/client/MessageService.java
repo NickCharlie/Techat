@@ -46,7 +46,7 @@ public class MessageService extends GTIntentService {
         byte[] payload = gtTransmitMessage.getPayload();
         if (payload != null){
             String message = new String(payload);
-            Log.i(TAG, "GET_MSG_DATA:" + message);
+            Log.i(TAG, "消息来啦GET_MSG_DATA:" + message);
             onMessageArrived(message);
         }
     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -85,7 +86,7 @@ public abstract class ChatFragment<InitModel> extends PresenterFragment<ChatCont
         super.initWidget(root);
         initToolbar();
         // RecyclerView 基本设置
-        // mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new Adapter();
         mRecyclerView.setAdapter(mAdapter);
         initAppbar();
@@ -262,11 +263,11 @@ public abstract class ChatFragment<InitModel> extends PresenterFragment<ChatCont
         @OnClick(R.id.img_chat_portrait)
         void onRePushClick() {
             // 重新发送消息
-            if (mLoading != null) {
-                // TODO: 重新发送
+            if (mLoading != null && mPresenter.rePush(mData)) {
+                // 状态改变, 重新刷新界面当前的信息
+                updataData(mData);
             }
         }
-
     }
 
     /**
@@ -274,7 +275,7 @@ public abstract class ChatFragment<InitModel> extends PresenterFragment<ChatCont
      */
     class TextHolder extends BaseHolder {
 
-        @BindView(R.id.text_chat_content)
+        @BindView(R.id.txt_chat_content)
         TextView mContent;
 
         public TextHolder(@NonNull View itemView) {

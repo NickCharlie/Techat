@@ -1,7 +1,5 @@
 package ink.techat.client.factory.data.helper;
 
-import android.util.Log;
-
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -9,7 +7,6 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.raizlabs.android.dbflow.structure.ModelAdapter;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
-import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -249,7 +246,7 @@ public class DbHelper {
                     // 添加到集合
                     sessions[index++] = session;
                 }
-                // 找到需要通知的群, 进行一次通知分发
+                // 找到需要通知的会话, 进行一次通知分发
                 INSTANCE.notifySave(Session.class, sessions);
             }
         }).build().execute();
