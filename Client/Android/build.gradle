@@ -16,6 +16,7 @@ buildscript {
     }
 }
 
+
 allprojects {
     repositories {
         google()
@@ -55,4 +56,8 @@ ext{
     ossVersion = '2.3.0'
     gsonVersion = '2.8.6'
     retrofitVersion = '2.1.0'
+    appcompatVersion = '1.1.0'
+    junitVesion = '4.13'
+    materialVersion = '1.1.0'
+    constraintlayoutVersion = '1.1.3'
 }

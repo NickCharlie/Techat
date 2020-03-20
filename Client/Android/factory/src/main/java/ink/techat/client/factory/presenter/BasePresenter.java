@@ -1,15 +1,14 @@
 package ink.techat.client.factory.presenter;
 
-
 import ink.techat.client.factory.model.db.User;
 
 /**
  * @author NickCharlie
- * @param <T>
+ * @param <T> T
  */
 public class BasePresenter<T extends BaseContract.View> implements BaseContract.Presenter{
     private T mView;
-    public User globalUser;
+    protected User globalUser;
     public BasePresenter(T view){
         setView(view);
     }
@@ -28,6 +27,7 @@ public class BasePresenter<T extends BaseContract.View> implements BaseContract.
      * 给子类使用的获取View的操作
      * @return View
      */
+    @SuppressWarnings("SpellCheckingInspection")
     protected final T getmView(){
         return mView;
     }

@@ -25,25 +25,21 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.13'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
-    implementation "net.qiujuer.genius:res:$rootProject.ext.geniusVersion"
-    implementation "net.qiujuer.genius:kit-handler:$rootProject.ext.geniusVersion"
-    implementation "com.aliyun.dpa:oss-android-sdk:$rootProject.ext.ossVersion"
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
-    implementation "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api "androidx.appcompat:appcompat:$rootProject.ext.appcompatVersion"
+    api "net.qiujuer.genius:kit-handler:$rootProject.ext.geniusVersion"
+    api "com.aliyun.dpa:oss-android-sdk:$rootProject.ext.ossVersion"
+    api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    api "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
 
-    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
+    api "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
     //noinspection GradleCompatible
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     api project(path: ':common')
 
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.dbflowVersion}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${rootProject.ext.dbflowVersion}"
     api "com.github.Raizlabs.DBFlow:dbflow:${rootProject.ext.dbflowVersion}"
 
-    implementation "net.qiujuer.genius:kit-reflect:$rootProject.ext.geniusVersion"
+    api "net.qiujuer.genius:kit-reflect:$rootProject.ext.geniusVersion"
 }
