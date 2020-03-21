@@ -27,7 +27,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/len_128"
         android:layout_marginLeft="@dimen/len_16"
         android:layout_marginTop="@dimen/len_16"
         android:layout_marginRight="@dimen/len_16"
@@ -38,9 +38,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/len_8">
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/len_20"
@@ -54,20 +54,16 @@
 
             <EditText
                 android:id="@+id/edit_register_phone"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/len_4"
                 android:layout_marginEnd="@dimen/len_2"
-                android:text="18376437725"
                 android:windowSoftInputMode="stateAlwaysVisible"
-                android:layout_weight="1"
                 android:background="@null"
                 android:enabled="true"
                 android:hint="@string/label_phone"
                 android:importantForAutofill="no"
                 android:inputType="phone"
-                android:paddingTop="@dimen/len_8"
-                android:paddingBottom="@dimen/len_8"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/textPrimary"
                 android:textColorHint="@color/textSecond"
@@ -86,9 +82,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/len_8">
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/len_20"
@@ -102,19 +98,15 @@
 
             <EditText
                 android:id="@+id/edit_register_person"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/len_4"
                 android:layout_marginEnd="@dimen/len_2"
-                android:layout_weight="1"
-                android:text="test"
                 android:background="@null"
                 android:enabled="true"
                 android:hint="@string/label_name"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:paddingTop="@dimen/len_8"
-                android:paddingBottom="@dimen/len_8"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/textPrimary"
                 android:textColorHint="@color/textSecond"
@@ -134,9 +126,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/len_8">
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/len_20"
@@ -150,19 +142,15 @@
 
             <EditText
                 android:id="@+id/edit_register_password"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/len_4"
                 android:layout_marginEnd="@dimen/len_2"
-                android:layout_weight="1"
                 android:background="@null"
                 android:enabled="true"
-                android:text="ifucklover520n"
                 android:hint="@string/label_password"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
-                android:paddingTop="@dimen/len_8"
-                android:paddingBottom="@dimen/len_8"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/textPrimary"
                 android:textColorHint="@color/textSecond"

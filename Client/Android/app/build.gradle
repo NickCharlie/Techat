@@ -49,16 +49,12 @@ buildscript {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$rootProject.ext.appcompatVersion"
     //noinspection GradleCompatible
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.constraintlayoutVersion"
     implementation "com.google.android.material:material:$rootProject.ext.materialVersion"
     implementation "junit:junit:$rootProject.ext.junitVesion"
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
-
-    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
-    implementation project(path: ':factory')
 
     implementation "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
     implementation "net.qiujuer.genius:res:$rootProject.ext.geniusVersion"
@@ -76,4 +72,5 @@ dependencies {
 
     // 个推
     implementation "com.getui:sdk:$rootProject.ext.getuiVersion"
+    implementation project(path: ':factory')
 }

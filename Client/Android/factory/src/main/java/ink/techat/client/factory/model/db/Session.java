@@ -1,5 +1,7 @@
 package ink.techat.client.factory.model.db;
 
+import android.text.TextUtils;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -8,9 +10,14 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import java.util.Date;
 import java.util.Objects;
 
+import ink.techat.client.factory.data.group.GroupHelper;
+import ink.techat.client.factory.data.helper.UserHelper;
+import ink.techat.client.factory.data.message.MessageHelper;
+
 
 /**
  * 本地的会话表
+ *
  * @author NickCharlie
  */
 @Table(database = AppDatabase.class)
@@ -184,8 +191,71 @@ public class Session extends BaseDbModel<Session> {
         return identify;
     }
 
+    /**
+     * 刷新会话对应的消息为当前Message的最新状态
+     */
     public void refreshToNow() {
-        // TODO: 刷新Session
+        Message message;
+        if (receiverType == Message.RECEIVER_TYPE_GROUP) {
+            // 刷新当前对应的群的相关信息
+            message = MessageHelper.findLastWithGroup(id);
+            if (message == null) {
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(picture)) {
+                    // 查询群
+                    Group group = GroupHelper.findFromLocal(id);
+                    if (group != null) {
+                        this.picture = group.getPicture();
+                        this.title = group.getName();
+                    }
+                }
+                this.message = null;
+                this.content = "";
+                this.modifyAt = new Date(System.currentTimeMillis());
+            } else {
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(picture)) {
+                    // 查询群
+                    Group group = message.getGroup();
+                    group.load();
+                    if (group != null) {
+                        this.picture = group.getPicture();
+                        this.title = group.getName();
+                    }
+                }
+                this.message = message;
+                this.content = message.getSampleContent();
+                this.modifyAt = new Date(System.currentTimeMillis());
+            }
+        } else {
+            message = MessageHelper.findLastWithUser(id);
+            if (message == null) {
+                // 与联系人之间没有消息来往
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(picture)) {
+                    // 查询人
+                    User user = UserHelper.findFromLocal(id);
+                    if (user != null) {
+                        this.picture = user.getPortrait();
+                        this.title = user.getName();
+                    }
+                }
+                this.message = null;
+                this.content = "";
+                this.modifyAt = message.getCreateAt();
+            } else {
+                // 与联系人之间有消息来往
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(picture)) {
+                    // 查询人
+                    User other = message.getOther();
+                    other.load();
+                    if (other != null) {
+                        this.picture = other.getPortrait();
+                        this.title = other.getName();
+                    }
+                }
+                this.message = message;
+                this.content = message.getSampleContent();
+                this.modifyAt = message.getCreateAt();
+            }
+        }
     }
 
     /**

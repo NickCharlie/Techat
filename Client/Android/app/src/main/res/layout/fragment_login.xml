@@ -33,14 +33,14 @@
         android:paddingTop="@dimen/len_8"
         android:background="@drawable/bg_account_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/len_92"
         android:orientation="vertical">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/len_8">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <ImageView
                 android:src="@drawable/ic_phone"
@@ -52,17 +52,13 @@
                 android:tint="@color/colorAccent"
                 android:contentDescription="@string/app_name" />
 
-            <net.qiujuer.genius.ui.widget.EditText
+            <EditText
                 android:id="@+id/edit_login_phone"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:text="18376437726"
-                android:layout_height="0dp"
-                android:background="@null"
-                android:editable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:focusable="true"
-                android:paddingBottom="@dimen/len_8"
-                android:paddingTop="@dimen/len_8"
+                android:focusableInTouchMode="true"
+                android:background="@null"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/textPrimary"
                 android:textColorHint="@color/textSecond"
@@ -71,8 +67,8 @@
                 android:layout_marginStart="@dimen/len_4"
                 android:layout_marginEnd="@dimen/len_2"
                 android:hint="@string/label_phone"
-                android:inputType="phone" />
-
+                android:inputType="phone"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <View
@@ -87,8 +83,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/len_8">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <ImageView
                 android:src="@drawable/ic_key"
@@ -102,15 +98,11 @@
 
             <EditText
                 android:id="@+id/edit_login_password"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@null"
-                android:text="ifucklover520n"
-                android:editable="true"
                 android:focusable="true"
-                android:paddingBottom="@dimen/len_8"
-                android:paddingTop="@dimen/len_8"
+                android:focusableInTouchMode="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/textPrimary"
                 android:textColorHint="@color/textSecond"
@@ -119,11 +111,13 @@
                 android:layout_marginStart="@dimen/len_4"
                 android:layout_marginEnd="@dimen/len_2"
                 android:hint="@string/label_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
 
     </LinearLayout>
+
     <FrameLayout
         android:layout_gravity="end"
         android:paddingEnd="@dimen/len_16"

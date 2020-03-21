@@ -13,12 +13,15 @@ import ink.techat.client.common.app.Activity;
 import ink.techat.client.common.app.Fragment;
 import ink.techat.client.factory.model.Author;
 import ink.techat.client.factory.model.db.Group;
+import ink.techat.client.factory.model.db.Message;
+import ink.techat.client.factory.model.db.Session;
 import ink.techat.client.push.R;
 import ink.techat.client.push.fragments.message.ChatGroupFragment;
 import ink.techat.client.push.fragments.message.ChatUserFragment;
 
 /**
  * 聊天界面
+ *
  * @author NickCharlie
  */
 public class MessageActivity extends Activity {
@@ -36,12 +39,29 @@ public class MessageActivity extends Activity {
     private boolean mIsGroup;
 
     /**
-     * 显示与对应联系人的聊天界面
+     * 显示对应的会话
+     *
      * @param context Context
-     * @param author 联系人的信息
+     * @param session Session
      */
-    public static void show(Context context, Author author){
-        if (author == null || context == null || TextUtils.isEmpty((author.getId()))){
+    public static void show(Context context, Session session) {
+        if (session == null || context == null || TextUtils.isEmpty((session.getId()))) {
+            return;
+        }
+        Intent intent = new Intent(context, MessageActivity.class);
+        intent.putExtra(KEY_RECEIVER_ID, session.getId());
+        intent.putExtra(KEY_RECEIVER_IS_GROUP, session.getReceiverType() == Message.RECEIVER_TYPE_GROUP);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 显示与对应联系人的聊天界面
+     *
+     * @param context Context
+     * @param author  联系人的信息
+     */
+    public static void show(Context context, Author author) {
+        if (author == null || context == null || TextUtils.isEmpty((author.getId()))) {
             return;
         }
         Intent intent = new Intent(context, MessageActivity.class);
@@ -52,11 +72,12 @@ public class MessageActivity extends Activity {
 
     /**
      * 显示与对应群的聊天界面
+     *
      * @param context Context
-     * @param group 群的信息
+     * @param group   群的信息
      */
-    public static void show(Context context, Group group){
-        if (group == null || context == null || TextUtils.isEmpty(group.getId())){
+    public static void show(Context context, Group group) {
+        if (group == null || context == null || TextUtils.isEmpty(group.getId())) {
             return;
         }
         Intent intent = new Intent(context, MessageActivity.class);
@@ -82,7 +103,7 @@ public class MessageActivity extends Activity {
         super.initWidget();
         setTitle("");
         Fragment fragment;
-        if (mIsGroup){
+        if (mIsGroup) {
             fragment = new ChatGroupFragment();
         } else {
             fragment = new ChatUserFragment();
